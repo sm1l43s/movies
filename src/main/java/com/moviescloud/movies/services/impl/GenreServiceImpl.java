@@ -2,7 +2,7 @@ package com.moviescloud.movies.services.impl;
 
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.exceptions.ResourceNotFoundException;
-import com.moviescloud.movies.repoitories.GenreRepository;
+import com.moviescloud.movies.repositories.GenreRepository;
 import com.moviescloud.movies.services.IGenreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

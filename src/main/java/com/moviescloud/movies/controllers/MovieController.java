@@ -2,7 +2,7 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.entities.Movie;
-import com.moviescloud.movies.repoitories.GenreRepository;
+import com.moviescloud.movies.repositories.GenreRepository;
 import com.moviescloud.movies.services.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

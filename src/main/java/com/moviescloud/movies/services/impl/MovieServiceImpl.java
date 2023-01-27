@@ -2,7 +2,7 @@ package com.moviescloud.movies.services.impl;
 
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.exceptions.ResourceNotFoundException;
-import com.moviescloud.movies.repoitories.MovieRepository;
+import com.moviescloud.movies.repositories.MovieRepository;
 import com.moviescloud.movies.services.IMovieService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

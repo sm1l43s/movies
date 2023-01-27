@@ -1,4 +1,4 @@
-package com.moviescloud.movies.repoitories;
+package com.moviescloud.movies.repositories;
 
 import com.moviescloud.movies.entities.Genre;
 import org.springframework.data.repository.PagingAndSortingRepository;
