@@ -26,11 +26,19 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public Movie findById(Long id) {
+        log.info("Getting a movie by id=" + id);
         return movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Movie with id=" + id + " not found"));
     }
 
     @Override
     public Movie save(Movie movie) {
+        log.info("Save movie:" + movie);
         return movieRepository.save(movie);
+    }
+
+    @Override
+    public void delete(Movie movie) {
+        log.info("Delete movie: " + movie);
+        movieRepository.delete(movie);
     }
 }

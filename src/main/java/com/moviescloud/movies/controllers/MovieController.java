@@ -2,13 +2,16 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.entities.Movie;
-import com.moviescloud.movies.repositories.GenreRepository;
+import com.moviescloud.movies.services.IGenreService;
 import com.moviescloud.movies.services.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,21 +19,21 @@ import java.util.List;
 public class MovieController {
 
     IMovieService movieService;
-    GenreRepository genreRepository;
+    IGenreService genreService;
 
     @Autowired
-    public MovieController(IMovieService movieService, GenreRepository genreRepository) {
+    public MovieController(IMovieService movieService, IGenreService genreService) {
         this.movieService = movieService;
-        this.genreRepository = genreRepository;
+        this.genreService = genreService;
     }
 
     @GetMapping
     public Iterable<Movie> getMovies(
-           @RequestParam(name ="page", required = false, defaultValue = "0") int page,
+           @RequestParam(name ="page", required = false, defaultValue = "0")  int page,
            @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
-           @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy) {
+           @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
 
-        return movieService.findAll(PageRequest.of(page, pageSize, Sort.by(sortBy)));
+        return movieService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
     }
 
     @GetMapping("/{id}")
@@ -40,8 +43,27 @@ public class MovieController {
 
     @PostMapping
     public Movie add(@RequestBody Movie movie) {
-        Genre genre = genreRepository.findById(1L).get();
-        movie.setGenres(List.of(genre));
+        movie.setGenres(mapGenres(movie));
         return movieService.save(movie);
+    }
+
+    @PutMapping
+    public Movie edit(@RequestBody Movie movie) {
+        movie.setGenres(mapGenres(movie));
+        return movieService.save(movie);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
+        movieService.delete(movieService.findById(id));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private List<Genre> mapGenres(Movie movie) {
+        List<Genre> genres = new ArrayList<>();
+        for (Genre genre: movie.getGenres()) {
+            genres.add(genreService.findById(genre.getId()));
+        }
+        return genres;
     }
 }

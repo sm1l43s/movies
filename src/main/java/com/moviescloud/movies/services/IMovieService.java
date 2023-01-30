@@ -8,5 +8,6 @@ public interface IMovieService {
     Iterable<Movie> findAll(Pageable pageable);
     Movie findById(Long id);
     Movie save(Movie movie);
+    void delete(Movie movie);
 
 }

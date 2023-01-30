@@ -2,6 +2,7 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.services.IGenreService;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,11 +23,14 @@ public class GenreController {
 
     @GetMapping
     public Iterable<Genre> getAll(
+            @Parameter(description = "Номер страницы")
             @RequestParam(name ="page", required = false, defaultValue = "0") int page,
+            @Parameter(description = "Количество элементов на одной странице")
             @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
-            @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy) {
+            @Parameter(description = "Поле сортировки выводимых значений")
+            @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
 
-        return genreService.findAll(PageRequest.of(page, pageSize, Sort.by(sortBy)));
+        return genreService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
     }
 
     @GetMapping("/{id}")
@@ -46,7 +50,7 @@ public class GenreController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGenre(@PathVariable Long id) {
         genreService.delete(genreService.findById(id));
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
