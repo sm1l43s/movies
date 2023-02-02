@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -54,6 +55,14 @@ public class PersonController {
         return person.getMovies();
     }
 
+    @DeleteMapping("/{id}/movies")
+    public ResponseEntity<?> clearMoviesList(@PathVariable long id) {
+        Person person = personService.findById(id);
+        person.setMovies(Collections.emptyList());
+        personService.save(person);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping
     public Person add(@RequestBody Person person) {
         person.setMovies(mapMovie(person.getMovies()));
@@ -64,6 +73,12 @@ public class PersonController {
     public Person edit(@RequestBody Person person) {
         person.setMovies(mapMovie(person.getMovies()));
         return personService.save(person);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> delete(@RequestBody Person person) {
+        personService.delete(person);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

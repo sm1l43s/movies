@@ -53,6 +53,12 @@ public class MovieController {
         return movieService.save(movie);
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteMovie(@RequestBody Movie movie) {
+        movieService.delete(movie);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
         movieService.delete(movieService.findById(id));

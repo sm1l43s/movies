@@ -47,6 +47,11 @@ public class GenreController {
         return genreService.save(genre);
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteGenre(@RequestBody Genre genre) {
+        genreService.delete(genre);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGenre(@PathVariable Long id) {
         genreService.delete(genreService.findById(id));

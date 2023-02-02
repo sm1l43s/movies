@@ -33,7 +33,7 @@ public class Person {
     private String posterUrl;
 
     @NotBlank
-    @Size(min = 0, max = 150)
+    @Size(max = 150)
     private int age;
 
     @NotBlank
@@ -47,7 +47,6 @@ public class Person {
     @JsonIgnore
     private List<Movie> movies;
 
-    @NotBlank
-    @Size(max = 256)
-    private String profession;
+    @OneToMany
+    private List<Profession> professions;
 }
