@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,6 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @NotBlank
     @Size(min = 2, max = 256)
     private String nameRu;
@@ -35,7 +35,7 @@ public class Movie {
     @NotBlank
     @Size(min = 5, max = 256)
     private String slogan;
-
+    @PastOrPresent
     private Date year;
     @NotBlank
     @Size(max = 1000)

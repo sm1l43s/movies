@@ -65,7 +65,6 @@ public class PersonController {
 
     @PostMapping
     public Person add(@RequestBody Person person) {
-        person.setMovies(mapMovie(person.getMovies()));
         return personService.save(person);
     }
 
