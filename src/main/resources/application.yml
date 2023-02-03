@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:${CLEARDB_DATABASE_URL:mysql://localhost/movies}
+    #url: jdbc:${CLEARDB_DATABASE_URL:mysql://localhost/movies}
+    url: jdbc:mysql://localhost/movies
     username: user
     password: user
   jpa:
