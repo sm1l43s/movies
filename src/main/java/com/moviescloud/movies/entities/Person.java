@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -20,33 +21,23 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotBlank
     @Size(min = 5, max = 256)
     private String nameRu;
     @NotBlank
     @Size(min = 5, max = 256)
     private String nameEn;
-
     @NotBlank
     @Size(max = 256)
     private String posterUrl;
-
-    @NotBlank
-    @Size(max = 150)
-    private int age;
-
-    @NotBlank
+    @PastOrPresent
     private Date birthday;
-
     @NotBlank
     @Size(min = 5, max = 256)
     private String birthPlace;
-
     @ManyToMany
     @JsonIgnore
     private List<Movie> movies;
-
     @OneToMany
     private List<Profession> professions;
 }
