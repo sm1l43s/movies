@@ -5,7 +5,6 @@ import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.services.IGenreService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -134,9 +133,9 @@ public class GenreController {
             )
     })
     @DeleteMapping
-    public ResponseEntity<?> deleteGenre(@Parameter(description = "JSON структура объекта жанра",
-            content = @Content(schema = @Schema(implementation = Genre.class)))
-                                             @RequestBody Genre genre) {
+    public ResponseEntity<?> deleteGenre(
+            @Parameter(description = "JSON структура объекта жанра", content = @Content(schema = @Schema(implementation = Genre.class)))
+            @RequestBody Genre genre) {
         genreService.delete(genre);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -151,8 +150,9 @@ public class GenreController {
             )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteGenre(@Parameter(description = "идентификатор удаляемого жанра фильма")
-                                         @PathVariable Long id) {
+    public ResponseEntity<?> deleteGenre(
+            @Parameter(description = "идентификатор удаляемого жанра фильма")
+            @PathVariable Long id) {
         genreService.delete(genreService.findById(id));
         return new ResponseEntity<>(HttpStatus.OK);
     }
