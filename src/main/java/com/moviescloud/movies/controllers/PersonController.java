@@ -2,9 +2,11 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Person;
+import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.services.IMovieService;
 import com.moviescloud.movies.services.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -29,11 +31,11 @@ public class PersonController {
     }
 
     @GetMapping
-    public Iterable<Person> getAll(@RequestParam(name ="page", required = false, defaultValue = "0")  int page,
-                                   @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
-                                   @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
-
-        return personService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+    public Response<Person> getAll(@RequestParam(name ="page", required = false, defaultValue = "0")  int page,
+                           @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
+                           @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
+        Page<Person> pages = personService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
     @GetMapping("/{id}")
@@ -42,8 +44,9 @@ public class PersonController {
     }
 
     @GetMapping("/{id}/movies")
-    public Iterable<Movie> getAllMoviesByPerson(@PathVariable long id) {
-        return personService.findById(id).getMovies();
+    public Response<Movie> getAllMoviesByPersonId(@PathVariable long id) {
+        List<Movie> movies = personService.findById(id).getMovies();
+        return new Response<>(HttpStatus.OK, movies, movies.size(), 0);
     }
 
     @PutMapping("/{id}/movies")
