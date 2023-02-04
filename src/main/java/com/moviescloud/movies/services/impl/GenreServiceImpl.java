@@ -6,6 +6,7 @@ import com.moviescloud.movies.repositories.GenreRepository;
 import com.moviescloud.movies.services.IGenreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,9 @@ public class GenreServiceImpl implements IGenreService {
     }
 
     @Override
-    public Iterable<Genre> findAll(Pageable pageable) {
+    public Page<Genre> findAll(Pageable pageable) {
         log.info("Getting a list of genres");
-        return genreRepository.findAll(pageable).getContent();
+        return genreRepository.findAll(pageable);
     }
 
     @Override

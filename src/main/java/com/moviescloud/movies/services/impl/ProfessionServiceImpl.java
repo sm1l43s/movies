@@ -5,6 +5,7 @@ import com.moviescloud.movies.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.ProfessionRepository;
 import com.moviescloud.movies.services.IProfessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,8 @@ public class ProfessionServiceImpl implements IProfessionService {
     }
 
     @Override
-    public Iterable<Profession> findAll(Pageable pageable) {
-        return professionRepository.findAll(pageable).getContent();
+    public Page<Profession> findAll(Pageable pageable) {
+        return professionRepository.findAll(pageable);
     }
 
     @Override

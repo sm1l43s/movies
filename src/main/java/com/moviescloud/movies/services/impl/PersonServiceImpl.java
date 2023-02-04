@@ -6,6 +6,7 @@ import com.moviescloud.movies.repositories.PersonRepository;
 import com.moviescloud.movies.services.IPersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,9 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public Iterable<Person> findAll(Pageable pageable) {
+    public Page<Person> findAll(Pageable pageable) {
         log.info("Getting a list of persons");
-        return personRepository.findAll(pageable).getContent();
+        return personRepository.findAll(pageable);
     }
 
     @Override

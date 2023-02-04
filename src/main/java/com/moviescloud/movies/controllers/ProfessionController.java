@@ -1,8 +1,10 @@
 package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Profession;
+import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.services.IProfessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,11 @@ public class ProfessionController {
     }
 
     @GetMapping
-    Iterable<Profession> getAll(@RequestParam(name ="page", required = false, defaultValue = "0")  int page,
+    public Response<Profession> getAll(@RequestParam(name ="page", required = false, defaultValue = "0")  int page,
                                 @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
                                 @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
-        return professionService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        Page<Profession> pages = professionService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
     @GetMapping("/{id}")

@@ -2,9 +2,11 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.entities.Movie;
+import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.services.IGenreService;
 import com.moviescloud.movies.services.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -28,12 +30,12 @@ public class MovieController {
     }
 
     @GetMapping
-    public Iterable<Movie> getMovies(
+    public Response<Movie> getMovies(
            @RequestParam(name ="page", required = false, defaultValue = "0")  int page,
            @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
            @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
-
-        return movieService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        Page<Movie> pages = movieService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
     @GetMapping("/{id}")

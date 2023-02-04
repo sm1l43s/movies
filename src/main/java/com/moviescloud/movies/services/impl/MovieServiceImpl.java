@@ -5,6 +5,7 @@ import com.moviescloud.movies.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.MovieRepository;
 import com.moviescloud.movies.services.IMovieService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,9 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
-    public Iterable<Movie> findAll(Pageable pageable) {
+    public Page<Movie> findAll(Pageable pageable) {
         log.info("Getting a list of movies");
-        return movieRepository.findAll(pageable).getContent();
+        return movieRepository.findAll(pageable);
     }
 
     @Override

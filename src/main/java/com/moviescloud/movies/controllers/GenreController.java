@@ -1,6 +1,7 @@
 package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Genre;
+import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.services.IGenreService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -38,21 +40,21 @@ public class GenreController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Genre.class))
+                                    schema = @Schema(implementation = Response.class)
                             )
                     }
             )
     })
     @GetMapping
-    public Iterable<Genre> getAll(
+    public Response<Genre> getAll(
             @Parameter(description = "Номер страницы")
             @RequestParam(name ="page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
             @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по - \"id\" (идентификатору) или \"name\" (названию жанра)")
             @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
-
-        return genreService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        Page<Genre> pages = genreService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
     @Operation(summary = "Получить данные о жанре по идентификатору",
@@ -107,7 +109,7 @@ public class GenreController {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Пустой или неправильный JSON объект нового жанра",
+                    description = "Пустой или неправильный JSON объект жанра",
                     content = @Content
             )
     })
@@ -127,7 +129,7 @@ public class GenreController {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Пустой или неправильный JSON объект нового жанра",
+                    description = "Пустой или неправильный JSON объект жанра",
                     content = @Content
             )
     })

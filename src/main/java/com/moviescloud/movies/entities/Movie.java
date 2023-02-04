@@ -1,5 +1,6 @@
 package com.moviescloud.movies.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,4 +46,7 @@ public class Movie {
     @NotBlank
     @Size(max = 10)
     private double rating;
+    @OneToMany
+    @JsonIgnore
+    private List<Review> reviews;
 }
