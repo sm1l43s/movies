@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Profession", description = "Набор методов для работы с данными о профессиях персонала фильмов.")
 @RestController
-@RequestMapping("/api/v1/profession")
+@RequestMapping("/api/v1/professions")
 public class ProfessionController {
 
     IProfessionService professionService;
