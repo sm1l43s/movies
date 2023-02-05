@@ -70,13 +70,13 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/review")
+    @GetMapping("/{id}/reviews")
     public Response<Review> getAllReviewByMovieId(@PathVariable Long id) {
         List<Review> reviews = movieService.findById(id).getReviews();
         return new Response<>(HttpStatus.OK, reviews, reviews.size(), 0);
     }
 
-    @PostMapping("/{id}/review")
+    @PostMapping("/{id}/reviews")
     public Review addReviewToMovie(@PathVariable Long id, @RequestBody Review review) {
         Movie movie = movieService.findById(id);
         movie.getReviews().add(review);
@@ -84,7 +84,7 @@ public class MovieController {
         return review;
     }
 
-    @DeleteMapping("/{id}/review")
+    @DeleteMapping("/{id}/reviews")
     public ResponseEntity<?> deleteReview(@PathVariable long id, @RequestBody Review review) {
         Movie movie = movieService.findById(id);
         movie.getReviews().remove(review);
@@ -92,7 +92,7 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/review")
+    @PutMapping("/{id}/reviews")
     public Review editReviewToMovie(@PathVariable Long id, @RequestBody Review review) {
         Movie movie = movieService.findById(id);
         int index = 0;
