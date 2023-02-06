@@ -28,8 +28,8 @@ public class User implements UserDetails {
     @Email
     @NotBlank
     private String email;
-    @JsonIgnore
     @NotBlank
+    @Size(max = 1024)
     private String password;
     @NotBlank
     @Size(max = 256)
@@ -38,7 +38,7 @@ public class User implements UserDetails {
     @Size(max = 256)
     private String lastName;
     private Date birthDay;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     public User(String email, String password, String firstName, String lastName, Date birthDay, List<Role> roles) {

@@ -18,4 +18,4 @@ server:
 
 jwt:
   secret: very_long_text
-  validity: 43200
+  validity: 43200000
