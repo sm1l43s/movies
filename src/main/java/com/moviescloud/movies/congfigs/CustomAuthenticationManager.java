@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomAuthenticationManager implements AuthenticationManager {
-    JwtUserDetailsService jwtUserDetailsService;
-    PasswordEncoder passwordEncoder;
+    final JwtUserDetailsService jwtUserDetailsService;
+    final PasswordEncoder passwordEncoder;
 
     @Autowired
     public CustomAuthenticationManager(JwtUserDetailsService jwtUserDetailsService, PasswordEncoder passwordEncoder) {

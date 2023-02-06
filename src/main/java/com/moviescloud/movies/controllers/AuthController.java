@@ -37,12 +37,12 @@ import java.util.List;
 @Slf4j
 public class AuthController {
 
-    JwtUserDetailsService jwtUserDetailsService;
-    JwtTokenService jwtTokenService;
-    CustomAuthenticationManager authenticationManager;
-    IUserService userService;
-    PasswordEncoder passwordEncoder;
-    IRoleService roleService;
+    final JwtUserDetailsService jwtUserDetailsService;
+    final JwtTokenService jwtTokenService;
+    final CustomAuthenticationManager authenticationManager;
+    final IUserService userService;
+    final PasswordEncoder passwordEncoder;
+    final IRoleService roleService;
     @Autowired
     public AuthController(JwtUserDetailsService jwtUserDetailsService, JwtTokenService jwtTokenService,
                           CustomAuthenticationManager authenticationManager, IUserService userService,

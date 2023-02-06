@@ -21,7 +21,7 @@ public class JwtSecurityConfig {
             "/swagger-resources/**"
     };
 
-    JwtRequestFilter jwtRequestFilter;
+    final JwtRequestFilter jwtRequestFilter;
 
     @Autowired
     public JwtSecurityConfig(JwtRequestFilter jwtRequestFilter) {
