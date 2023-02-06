@@ -38,7 +38,7 @@ public class JwtSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers(AUTH_WHITE_LIST).permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .antMatchers("/api/v1/auth/**").permitAll()
                 .anyRequest().hasRole("USER").and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
