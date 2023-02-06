@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MovieServiceImpl implements IMovieService {
 
-    MovieRepository movieRepository;
+    final MovieRepository movieRepository;
 
     public MovieServiceImpl(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;

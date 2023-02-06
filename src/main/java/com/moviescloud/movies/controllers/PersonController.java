@@ -30,8 +30,8 @@ import java.util.List;
 @RequestMapping("/api/v1/staff")
 public class PersonController {
 
-    IPersonService personService;
-    IMovieService movieService;
+    final IPersonService personService;
+    final IMovieService movieService;
 
     @Autowired
     public PersonController(IPersonService personService, IMovieService movieService) {

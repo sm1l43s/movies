@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class PersonServiceImpl implements IPersonService {
 
-    PersonRepository personRepository;
+    final PersonRepository personRepository;
 
     @Autowired
     public PersonServiceImpl(PersonRepository personRepository) {

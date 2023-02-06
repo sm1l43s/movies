@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class GenreServiceImpl implements IGenreService {
 
-    GenreRepository genreRepository;
+    final GenreRepository genreRepository;
 
     @Autowired
     public GenreServiceImpl(GenreRepository genreRepository) {

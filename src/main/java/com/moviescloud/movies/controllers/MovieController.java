@@ -23,8 +23,8 @@ import java.util.List;
 @RequestMapping("/api/v1/movies")
 public class MovieController {
 
-    IMovieService movieService;
-    IGenreService genreService;
+    final IMovieService movieService;
+    final IGenreService genreService;
 
     @Autowired
     public MovieController(IMovieService movieService, IGenreService genreService) {

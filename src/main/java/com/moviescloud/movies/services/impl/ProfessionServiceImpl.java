@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProfessionServiceImpl implements IProfessionService {
 
-    ProfessionRepository professionRepository;
+    final ProfessionRepository professionRepository;
 
     @Autowired
     public ProfessionServiceImpl(ProfessionRepository professionRepository) {

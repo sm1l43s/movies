@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/professions")
 public class ProfessionController {
 
-    IProfessionService professionService;
+    final IProfessionService professionService;
 
     @Autowired
     public ProfessionController(IProfessionService professionService) {

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/genres")
 public class GenreController {
 
-    IGenreService genreService;
+    final IGenreService genreService;
 
     @Autowired
     public GenreController(IGenreService genreService) {
