@@ -27,8 +27,11 @@ public class Movie {
     @Size(min = 2, max = 256)
     private String nameEn;
     @NotBlank
-    @Size(min = 5, max = 256)
+    @Size(min = 5, max = 1024)
     private String posterUrl;
+    @NotBlank
+    @Size(max = 1024)
+    private String trailerUrl;
     @Lob
     @NotBlank
     @Size(max = 64000)

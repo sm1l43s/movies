@@ -1,7 +1,8 @@
-package com.moviescloud.movies.controllers;
+package com.moviescloud.movies.controllers.handlers;
 
 import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.exceptions.ResourceNotFoundException;
+import com.moviescloud.movies.exceptions.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<AppException> catchResourceNotFoundException(ResourceNotFoundException e) {
         log.error(e.getMessage(), e);
         return new ResponseEntity<>(new AppException(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<AppException> catchUnauthorizedException(UnauthorizedException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(new AppException(HttpStatus.UNAUTHORIZED.value(), e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 }
