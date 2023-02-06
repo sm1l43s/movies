@@ -28,6 +28,7 @@ public class User implements UserDetails {
     @Email
     @NotBlank
     private String email;
+    @JsonIgnore
     @NotBlank
     @Size(max = 1024)
     private String password;
@@ -50,31 +51,38 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return mapToGrantedAuthorities(this.roles);
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return this.email;
     }
 
+
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return false;
