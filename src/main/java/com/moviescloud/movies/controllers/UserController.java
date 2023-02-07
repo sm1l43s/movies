@@ -63,7 +63,7 @@ public class UserController {
             @Parameter(description = "Список ролей которыми должен обладать пользователь")
             @RequestBody List<Role> roles) {
         User user = userService.findById(id);
-        user.setRoles(roles);
+        user.setRoles(mapToRoleUser(roles));
         userService.save(user);
         user = userService.findById(id);
         return user.getRoles();
@@ -72,7 +72,7 @@ public class UserController {
     @PutMapping
     public User editUserInfo(@RequestBody User user) {
         User userFromDB = userService.findById(user.getId());
-        user.setRoles(mapToRoleUser(user.getRoles()));
+        user.setRoles(userFromDB.getRoles());
         user.setPassword(userFromDB.getPassword());
         user.setEmail(userFromDB.getEmail());
         return userService.save(user);
