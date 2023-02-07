@@ -21,6 +21,20 @@ public class JwtSecurityConfig {
             "/swagger-resources/**"
     };
 
+    private static final String[] GET_REQUEST_WHITE_LIST = {
+            "/",
+            "/api/v1/genres",
+            "/api/v1/genres/**",
+            "/api/v1/staff",
+            "/api/v1/staff/**",
+            "/api/v1/movies",
+            "/api/v1/movies/**",
+            "/api/v1/profession",
+            "/api/v1/profession/**",
+            "/api/v1/users",
+            "/api/v1/users/{id}"
+    };
+
     final JwtRequestFilter jwtRequestFilter;
 
     @Autowired
@@ -37,9 +51,12 @@ public class JwtSecurityConfig {
         return http.cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers(AUTH_WHITE_LIST).permitAll()
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers(AUTH_WHITE_LIST).permitAll()
+                .antMatchers(HttpMethod.GET, GET_REQUEST_WHITE_LIST).permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/v1/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/v1/**").hasRole("ADMIN")
                 .anyRequest().hasRole("USER").and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
