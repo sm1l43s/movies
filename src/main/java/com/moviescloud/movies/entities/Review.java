@@ -1,9 +1,9 @@
 package com.moviescloud.movies.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -28,6 +28,7 @@ public class Review {
     private String description;
     @PastOrPresent
     private Date createdAt;
+    @JsonIgnore
     @ManyToOne
     @NotNull
     private User author;
