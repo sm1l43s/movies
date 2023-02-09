@@ -5,7 +5,13 @@ import com.moviescloud.movies.entities.Role;
 import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.services.IRoleService;
 import com.moviescloud.movies.services.IUserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +36,20 @@ public class UserController {
         this.roleService = roleService;
     }
 
+    @Operation(summary = "Получить список пользователй по различным фильтрам",
+            description = "Возвращает список пользователей приложения с пагинацией. Каждая страница содержит по умолчанию 10 элементов.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Response.class)
+                            )
+                    }
+            )
+    })
     @GetMapping
     public Response<User> getAllUsers(
             @Parameter(description = "Номер страницы")
@@ -42,6 +62,20 @@ public class UserController {
         return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
+    @Operation(summary = "Получить данные о пользователе по идентификатору",
+            description = "Возвращает базовые данные о пользователе.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content(schema = @Schema(implementation = User.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content
+            )
+    })
     @GetMapping("/{id}")
     public User getUserById(
             @Parameter(description = "идентификатор пользователя")
@@ -49,6 +83,20 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @Operation(summary = "Получить данные о правах пользователя (его роли) по идентификатору",
+            description = "Возвращает список прав (ролей) данного пользователя.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content(schema = @Schema(implementation = Role.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content
+            )
+    })
     @GetMapping("/{id}/roles")
     public Iterable<Role> getRolesByUser(
             @Parameter(description = "идентификатор пользователя")
@@ -56,6 +104,20 @@ public class UserController {
         return userService.findById(id).getRoles();
     }
 
+    @Operation(summary = "Изменить права у пользователя (редактирование ролей) по идентификатору",
+            description = "Возвращает измененные роли пользователя. Данная операция доступна пользователям с правами администратора.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = Role.class)))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content
+            )
+    })
     @PutMapping("/{id}/roles")
     public Iterable<Role> editRolesToUserById(
             @Parameter(description = "идентификатор пользователя")
@@ -69,6 +131,15 @@ public class UserController {
         return user.getRoles();
     }
 
+    @Operation(summary = "Редактирование информации о пользователе",
+            description = "Позволяет изменить данные о пользователе.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content(schema = @Schema(implementation = User.class))
+            )
+    })
     @PutMapping
     public User editUserInfo(@RequestBody User user) {
         User userFromDB = userService.findById(user.getId());
@@ -78,14 +149,42 @@ public class UserController {
         return userService.save(user);
     }
 
+    @Operation(summary = "Удалить данные о пользователе",
+            description = "Удаляет данного пользователя из системы.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Пустой или неправильный JSON объект",
+                    content = @Content
+            )
+    })
     @DeleteMapping
-    public ResponseEntity<?> deleteUser(@RequestBody User user) {
+    public ResponseEntity<?> deleteUser(
+            @Parameter(description = "JSON структура объекта пользователя",
+                    content = @Content(schema = @Schema(implementation = User.class)))
+            @RequestBody User user) {
         userService.delete(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "Удалить данные о пользователе по идентификатору",
+            description = "Удаляет данного пользователя.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content
+            )
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUserById(
+            @Parameter(description = "идентификатор удаляемого пользователя")
+            @PathVariable Long id) {
         userService.delete(userService.findById(id));
         return new ResponseEntity<>(HttpStatus.OK);
     }
