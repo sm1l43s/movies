@@ -7,6 +7,12 @@ import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.services.IMovieService;
 import com.moviescloud.movies.services.IReviewService;
 import com.moviescloud.movies.services.IUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,18 +35,59 @@ public class ReviewController {
         this.movieService = movieService;
         this.userService = userService;
     }
-
+    @Operation(summary = "Получить список рецензий (комментариев) к фильму по его идентификатору",
+            description = "Возвращает список рецензий.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = Review.class))
+                            )
+                    }
+            )
+    })
     @GetMapping("/{id}/reviews")
     public Response<Review> getAllReviewByMovieId(@PathVariable Long id) {
         List<Review> reviews = movieService.findById(id).getReviews();
         return new Response<>(HttpStatus.OK, reviews, reviews.size(), 1);
     }
 
+    @Operation(summary = "Получить информацию об авторе рецензии (комментария) к фильму по идентификатору рецензии",
+            description = "Возвращает информацию об авторе рецензии.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = User.class)
+                            )
+                    }
+            )
+    })
     @GetMapping("/reviews/{id}/authors")
     public User getAuthorReviewByIdReview(@PathVariable Long id) {
         return userService.findById(reviewService.findById(id).getAuthor().getId());
     }
 
+    @Operation(summary = "Добавить рецензию к фильму",
+            description = "Добавляет рецензию (комментарий) к фильму (по его идентификатору).")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Review.class)
+                            )
+                    }
+            )
+    })
     @PostMapping("/{id}/reviews")
     public Review addReviewToMovie(
             @PathVariable Long id,
@@ -57,6 +104,20 @@ public class ReviewController {
         return review;
     }
 
+    @Operation(summary = "Удалить рецензию у фильма.",
+            description = "Удаляет рецензию (комментарий) к фильму (по его идентификатору).")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Review.class)
+                            )
+                    }
+            )
+    })
     @DeleteMapping("/{id}/reviews")
     public ResponseEntity<?> deleteReview(@PathVariable long id, @RequestBody Review review) {
         Movie movie = movieService.findById(id);
@@ -71,6 +132,20 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "Изменить данные в рецензии фильма.",
+            description = "Позволяет редактировать информацию о рецензии (комментария) к фильму.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Review.class)
+                            )
+                    }
+            )
+    })
     @PutMapping("/reviews")
     public Review editReviewToMovie(@RequestBody Review review) {
         review.setAuthor(userService.findById(review.getAuthor().getId()));
