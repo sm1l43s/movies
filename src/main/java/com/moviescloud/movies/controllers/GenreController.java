@@ -156,5 +156,4 @@ public class GenreController {
         genreService.delete(genreService.findById(id));
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
