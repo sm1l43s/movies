@@ -26,15 +26,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/movies")
 public class ReviewController {
+
     final IReviewService reviewService;
     final IMovieService movieService;
     final IUserService userService;
+
     @Autowired
     public ReviewController(IReviewService reviewService, IMovieService movieService, IUserService userService) {
         this.reviewService = reviewService;
         this.movieService = movieService;
         this.userService = userService;
     }
+
     @Operation(summary = "Получить список рецензий (комментариев) к фильму по его идентификатору",
             description = "Возвращает список рецензий.")
     @ApiResponses(value = {

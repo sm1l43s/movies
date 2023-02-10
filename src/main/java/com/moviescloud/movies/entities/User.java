@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Date;
@@ -25,20 +25,27 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Email
     @NotBlank
     private String email;
+
     @JsonIgnore
     @NotBlank
     @Size(max = 1024)
     private String password;
+
     @NotBlank
     @Size(max = 256)
     private String firstName;
+
     @NotBlank
     @Size(max = 256)
     private String lastName;
+
+    @PastOrPresent
     private Date birthDay;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
@@ -62,7 +69,6 @@ public class User implements UserDetails {
     public String getUsername() {
         return this.email;
     }
-
 
     @JsonIgnore
     @Override

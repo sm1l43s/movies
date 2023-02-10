@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class Response<T> {
     private HttpStatus httpStatus;
+
     private Iterable<T> items;
+
     private long totalElements;
+
     private long totalPages;
 }

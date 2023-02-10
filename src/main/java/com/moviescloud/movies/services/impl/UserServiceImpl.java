@@ -11,27 +11,34 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements IUserService {
+
     final UserRepository userRepository;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     @Override
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id=" + id + " not found"));
     }
+
     @Override
     public User save(User user) {
         return userRepository.save(user);
     }
+
     @Override
     public void delete(User user) {
         userRepository.delete(user);
     }
+
     @Override
     public boolean existsUserByEmail(String email) {
         return userRepository.existsUserByEmail(email);

@@ -19,15 +19,19 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank
     @Size(max = 2500)
     private String title;
+
     @Lob
     @NotBlank
     @Size(max = 640000)
     private String description;
+
     @PastOrPresent
     private Date createdAt;
+
     @JsonIgnore
     @ManyToOne
     @NotNull

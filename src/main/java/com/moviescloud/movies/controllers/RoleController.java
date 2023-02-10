@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/roles")
 public class RoleController {
+
     final IRoleService roleService;
+
     @Autowired
     public RoleController(IRoleService roleService) {
         this.roleService = roleService;
@@ -157,6 +159,4 @@ public class RoleController {
         roleService.delete(roleService.findById(id));
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }
