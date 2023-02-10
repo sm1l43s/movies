@@ -17,6 +17,6 @@ public class JwtUserDetailsService {
 
     public UserDetails loadUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(
-                () -> new UnauthorizedException("Wrong email address or password"));
+                () -> new UnauthorizedException("Wrong email address or password!"));
     }
 }

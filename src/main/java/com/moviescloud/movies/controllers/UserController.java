@@ -20,7 +20,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +27,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
+
     final IUserService userService;
     final IRoleService roleService;
+
     @Autowired
     public UserController(IUserService userService, IRoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
-    @Operation(summary = "Получить список пользователй по различным фильтрам",
+    @Operation(summary = "Получить список пользователй по различным фильтрам.",
             description = "Возвращает список пользователей приложения с пагинацией. Каждая страница содержит по умолчанию 10 элементов.")
     @ApiResponses(value = {
             @ApiResponse(
@@ -62,7 +63,7 @@ public class UserController {
         return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
-    @Operation(summary = "Получить данные о пользователе по идентификатору",
+    @Operation(summary = "Получить данные о пользователе по его идентификатору.",
             description = "Возвращает базовые данные о пользователе.")
     @ApiResponses(value = {
             @ApiResponse(
@@ -78,7 +79,7 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public User getUserById(
-            @Parameter(description = "идентификатор пользователя")
+            @Parameter(description = "идентификатор пользователя.")
             @PathVariable Long id) {
         return userService.findById(id);
     }
@@ -104,7 +105,7 @@ public class UserController {
         return userService.findById(id).getRoles();
     }
 
-    @Operation(summary = "Изменить права у пользователя (редактирование ролей) по идентификатору",
+    @Operation(summary = "Изменить права у пользователя (редактирование ролей) по идентификатору.",
             description = "Возвращает измененные роли пользователя. Данная операция доступна пользователям с правами администратора.")
     @ApiResponses(value = {
             @ApiResponse(

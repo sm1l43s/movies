@@ -1,6 +1,5 @@
 spring:
   datasource:
-    #url: jdbc:${CLEARDB_DATABASE_URL:mysql://localhost/movies}
     url: jdbc:mysql://localhost/movies
     username: user
     password: user
@@ -15,7 +14,6 @@ springdoc:
     path: /swagger-ui
 server:
   port: ${PORT:8080}
-
 jwt:
   secret: very_long_text
   validity: 43200000

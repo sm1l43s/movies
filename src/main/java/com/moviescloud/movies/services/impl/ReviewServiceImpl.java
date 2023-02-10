@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ReviewServiceImpl implements IReviewService {
+
     final ReviewRepository reviewRepository;
+
     @Autowired
     public ReviewServiceImpl(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;

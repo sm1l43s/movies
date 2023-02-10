@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/movies")
 public class MovieController {
+
     final IMovieService movieService;
     final IGenreService genreService;
     @Autowired

@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 
 @Service
 @Slf4j
 public class JwtTokenService {
-
     @Value("${jwt.validity}")
     private long JWT_TOKEN_VALIDITY;
     private final Algorithm hmac512;
@@ -34,7 +32,7 @@ public class JwtTokenService {
                 .sign(this.hmac512);
     }
 
-    public String validateTokenAndGetUsername(final String token) {
+    public String validateTokenAndGetEmail(final String token) {
         try {
             return verifier.verify(token).getSubject();
         } catch (final JWTVerificationException verificationEx) {
@@ -42,5 +40,4 @@ public class JwtTokenService {
             return null;
         }
     }
-
 }
