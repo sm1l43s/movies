@@ -73,7 +73,7 @@ public class AuthController {
                     content = @Content
             )
     })
-    @PostMapping("/signing")
+    @PostMapping("/signin")
     public AuthenticationResponse signing(
             @Parameter(description = "Емайл адрес и пароль для авторизации")
             @RequestBody AuthenticationRequest authenticationRequest) {
