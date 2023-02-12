@@ -123,6 +123,6 @@ public class AuthController {
         if (user != null) {
             return user;
         }
-        throw new UnauthorizedException("Error");
+        return null;
     }
 }
