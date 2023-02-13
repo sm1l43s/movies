@@ -2,6 +2,7 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.congfigs.CustomAuthenticationManager;
 import com.moviescloud.movies.entities.User;
+import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.exceptions.UnauthorizedException;
 import com.moviescloud.movies.services.IRoleService;
 import com.moviescloud.movies.services.IUserService;
@@ -117,12 +118,31 @@ public class AuthController {
         return HttpStatus.CREATED;
     }
 
+    @Operation(summary = "Метод для получения информации о пользователе.",
+            description = "Позволяет получить данные об авторизованном пользователе.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно.",
+                    content = @Content (
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = User.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Данный пользователь не авторизован.",
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
+            )
+    })
     @GetMapping("/me")
     public User getInfo() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user != null) {
-            return user;
+        try {
+            return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException e) {
+            throw new UnauthorizedException("You are not authorized. Please log in!");
         }
-        return null;
     }
 }
