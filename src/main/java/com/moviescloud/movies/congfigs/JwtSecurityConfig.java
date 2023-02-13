@@ -50,7 +50,6 @@ public class JwtSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http.cors().and()
                 .csrf().disable()
-                .cors().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers(AUTH_WHITE_LIST).permitAll()
