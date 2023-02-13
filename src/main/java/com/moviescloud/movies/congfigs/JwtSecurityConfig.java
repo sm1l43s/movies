@@ -48,7 +48,7 @@ public class JwtSecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        return http.cors().and()
+        return http
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
