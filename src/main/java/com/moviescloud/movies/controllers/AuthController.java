@@ -105,11 +105,11 @@ public class AuthController {
     })
     @PostMapping("/signup")
     public HttpStatus signup(
-            @Parameter(description = "Емайл адрес и пароль для регистрации")
+            @Parameter(description = "Емайл адрес и пароль для регистрации.")
             @RequestBody AuthenticationRequest authenticationRequest) {
 
         if (userService.existsUserByEmail(authenticationRequest.getEmail())) {
-            throw new UnauthorizedException("Wrong email address or password");
+            throw new UnauthorizedException("Wrong email address or password!");
         }
 
         User user = new User(authenticationRequest.getEmail(),passwordEncoder.encode(authenticationRequest.getPassword()),
