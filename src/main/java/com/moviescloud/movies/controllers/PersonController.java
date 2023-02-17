@@ -3,6 +3,7 @@ package com.moviescloud.movies.controllers;
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Person;
 import com.moviescloud.movies.entities.Response;
+import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.services.IMovieService;
 import com.moviescloud.movies.services.IPersonService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,7 +76,9 @@ public class PersonController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Персона не найден",
-                    content = @Content
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
             )
     })
     @GetMapping("/{id}")

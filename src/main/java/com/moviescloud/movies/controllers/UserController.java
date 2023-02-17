@@ -3,6 +3,7 @@ package com.moviescloud.movies.controllers;
 import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.entities.Role;
 import com.moviescloud.movies.entities.User;
+import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.services.IRoleService;
 import com.moviescloud.movies.services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -74,7 +75,9 @@ public class UserController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Пользователь не найден",
-                    content = @Content
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
             )
     })
     @GetMapping("/{id}")
@@ -95,7 +98,9 @@ public class UserController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Пользователь не найден",
-                    content = @Content
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
             )
     })
     @GetMapping("/{id}/roles")
@@ -116,7 +121,9 @@ public class UserController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Пользователь не найден",
-                    content = @Content
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
             )
     })
     @PutMapping("/{id}/roles")

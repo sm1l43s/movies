@@ -2,6 +2,7 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Profession;
 import com.moviescloud.movies.entities.Response;
+import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.services.IProfessionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -67,7 +68,9 @@ public class ProfessionController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Жанр не найден",
-                    content = @Content
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
             )
     })
     @GetMapping("/{id}")

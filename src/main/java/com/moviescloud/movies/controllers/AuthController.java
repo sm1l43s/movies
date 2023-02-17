@@ -69,7 +69,9 @@ public class AuthController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Неверный емайл адрес или пароль.",
-                    content = @Content
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
             )
     })
     @PostMapping("/signin")
@@ -100,7 +102,9 @@ public class AuthController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Не уникальный емайл адрес.",
-                    content = @Content
+                    content = @Content (
+                            schema = @Schema(implementation = AppException.class)
+                    )
             )
     })
     @PostMapping("/signup")
