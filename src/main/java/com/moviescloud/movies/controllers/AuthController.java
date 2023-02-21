@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.extern.slf4j.Slf4j;
 import com.moviescloud.movies.authentication.AuthenticationRequest;
 import com.moviescloud.movies.authentication.AuthenticationResponse;
 import com.moviescloud.movies.services.impl.jwt.JwtTokenService;
@@ -32,7 +31,6 @@ import java.util.List;
 @Tag(name = "Authentication", description = "Набор методов для авторизации и регистрации пользователя.")
 @RestController
 @RequestMapping("/api/v1/auth")
-@Slf4j
 public class AuthController {
 
     final JwtUserDetailsService jwtUserDetailsService;
