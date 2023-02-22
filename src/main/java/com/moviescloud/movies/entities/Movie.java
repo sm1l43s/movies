@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -46,7 +45,7 @@ public class Movie {
     private String slogan;
 
     @PastOrPresent
-    private Date year;
+    private String year;
 
     @NotBlank
     @Size(max = 1000)
@@ -55,11 +54,37 @@ public class Movie {
     @ManyToMany
     private List<Genre> genres;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Country> countries;
+
     @NotBlank
     @Size(max = 10)
-    private double rating;
+    private double ratingImdb;
 
-    @OneToMany(cascade =  CascadeType.ALL)
+    @NotBlank
+    @Size(max = 10)
+    private double ratingKinopoisk;
+
     @JsonIgnore
+    @NotBlank
+    @Size
+    private Long votesScore;
+
+    @JsonIgnore
+    @NotBlank
+    @Size
+    private Long numberOfVotes;
+
+    @JsonIgnore
+    @OneToMany(cascade =  CascadeType.ALL)
     private List<Review> reviews;
+
+    @OneToOne
+    public Type type;
+
+    @Size(max = 10)
+    public long getRating() {
+        return this.votesScore / this.numberOfVotes;
+    }
 }
+
