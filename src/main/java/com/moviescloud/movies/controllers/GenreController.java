@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Genres", description = "Набор методов для работы с данными о жанрах фильмов")
@@ -78,85 +77,5 @@ public class GenreController {
             @Parameter(description = "идентификатор жанра")
             @PathVariable Long id) {
         return genreService.findById(id);
-    }
-
-    @Operation(summary = "Добавить новый жанр фильма",
-            description = "Добовляет и возвращает базовые данные о новом жанре фильма.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content(schema = @Schema(implementation = Genre.class))
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект нового жанра",
-                    content = @Content
-            )
-    })
-    @PostMapping
-    public Genre addGenre(@Parameter(description = "JSON структура объекта жанра. Значение \"id\" - не обязательное (\"id\" = \"null\")",
-                                     content = @Content(schema = @Schema(implementation = Genre.class)))
-                          @RequestBody Genre genre) {
-        return genreService.save(genre);
-    }
-
-    @Operation(summary = "Изменить данные о жанре фильма",
-            description = "Изменяет и возвращает базовые данные о новом жанре фильма.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content(schema = @Schema(implementation = Genre.class))
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект жанра",
-                    content = @Content
-            )
-    })
-    @PutMapping Genre editGenre(@Parameter(description = "JSON структура объекта жанра",
-            content = @Content(schema = @Schema(implementation = Genre.class)))
-                                    @RequestBody Genre genre) {
-        return genreService.save(genre);
-    }
-
-    @Operation(summary = "Удалить данные о жанре фильма",
-            description = "Удаляет данный жанр фильма.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект жанра",
-                    content = @Content
-            )
-    })
-    @DeleteMapping
-    public ResponseEntity<?> deleteGenre(
-            @Parameter(description = "JSON структура объекта жанра", content = @Content(schema = @Schema(implementation = Genre.class)))
-            @RequestBody Genre genre) {
-        genreService.delete(genre);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "Удалить данные о жанре фильма по идентификатору",
-            description = "Удаляет данный жанр фильма.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content
-            )
-    })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteGenre(
-            @Parameter(description = "идентификатор удаляемого жанра фильма")
-            @PathVariable Long id) {
-        genreService.delete(genreService.findById(id));
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

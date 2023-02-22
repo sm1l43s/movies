@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Roles", description = "Набор методов для работы с ролями(пользователь, админ и тд) пользователей")
@@ -78,88 +77,5 @@ public class RoleController {
             @Parameter(description = "идентификатор роли")
             @PathVariable Long id) {
         return roleService.findById(id);
-    }
-
-    @Operation(summary = "Добавить новый вид роли пользователя. " +
-            "Наименование роли должно быть следующим -> \"ROLE_ИМЯ_РОЛИ\" (ROLE_USER или ROLE_ADMIN и т.п.)",
-            description = "Добовляет и возвращает базовые данные о новом виде роли.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content(schema = @Schema(implementation = Role.class))
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект",
-                    content = @Content
-            )
-    })
-    @PostMapping
-    public Role addRole(@Parameter(description = "JSON структура объекта роли. Значение \"id\" - не обязательное (\"id\" = \"null\")",
-            content = @Content(schema = @Schema(implementation = Role.class)))
-                          @RequestBody Role role) {
-        return roleService.save(role);
-    }
-
-    @Operation(summary = "Изменить данные о роли пользователя. " +
-            "Наименование роли должно быть следующим -> \"ROLE_ИМЯ_РОЛИ\" (ROLE_USER или ROLE_ADMIN и т.п.)",
-            description = "Изменяет и возвращает базовые данные о роли пользователя." +
-                    "Наименование роли должно быть следующим -> \"ROLE_ИМЯ_РОЛИ\" (ROLE_USER или ROLE_ADMIN и т.п.)")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно.",
-                    content = @Content(schema = @Schema(implementation = Role.class))
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект.",
-                    content = @Content
-            )
-    })
-    @PutMapping Role editRole(@Parameter(description = "JSON структура объекта роли",
-            content = @Content(schema = @Schema(implementation = Role.class)))
-                                @RequestBody Role role) {
-        return roleService.save(role);
-    }
-
-    @Operation(summary = "Удалить данные о роли пользователя",
-            description = "Удаляет данный вид роли пользователя.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект",
-                    content = @Content
-            )
-    })
-    @DeleteMapping
-    public ResponseEntity<?> deleteRole(
-            @Parameter(description = "JSON структура объекта роли", content = @Content(schema = @Schema(implementation = Role.class)))
-            @RequestBody Role role) {
-        roleService.delete(role);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "Удалить данные о роли пользователя по идентификатору",
-            description = "Удаляет данный вид роли пользователя.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content
-            )
-    })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRole(
-            @Parameter(description = "идентификатор удаляемого вида роли")
-            @PathVariable Long id) {
-        roleService.delete(roleService.findById(id));
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

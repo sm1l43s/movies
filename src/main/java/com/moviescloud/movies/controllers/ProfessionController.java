@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Profession", description = "Набор методов для работы с данными о профессиях персонала фильмов.")
@@ -78,87 +77,5 @@ public class ProfessionController {
             @Parameter(description = "идентификатор профессии.")
             @PathVariable long id) {
         return professionService.findById(id);
-    }
-
-    @Operation(summary = "Добавить новый вид профессии фильма",
-            description = "Добовляет и возвращает базовые данные о новом фиде профессии фильма.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content(schema = @Schema(implementation = Profession.class))
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект",
-                    content = @Content
-            )
-    })
-    @PostMapping
-    Profession add(
-            @Parameter(description = "JSON структура объекта префесии. Значение \"id\" - не обязательное (\"id\" = \"null\")",
-                    content = @Content(schema = @Schema(implementation = Profession.class)))
-            @RequestBody Profession profession) {
-        return professionService.save(profession);
-    }
-
-    @Operation(summary = "Изменить данные о профессии фильма",
-            description = "Изменяет и возвращает базовые данные о профессии фильма.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content(schema = @Schema(implementation = Profession.class))
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект жанра",
-                    content = @Content
-            )
-    })
-    @PutMapping
-    Profession edit(
-            @Parameter(description = "JSON структура объекта префесии.", content = @Content(schema = @Schema(implementation = Profession.class)))
-            @RequestBody Profession profession) {
-        return professionService.save(profession);
-    }
-
-    @Operation(summary = "Удалить данные о профессии фильма",
-            description = "Удаляет данную профессию фильма.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Пустой или неправильный JSON объект",
-                    content = @Content
-            )
-    })
-    @DeleteMapping
-    ResponseEntity<?> delete(
-            @Parameter(description = "JSON структура объекта префесии.", content = @Content(schema = @Schema(implementation = Profession.class)))
-            @RequestBody Profession profession) {
-        professionService.delete(profession);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "Удалить данные о профессии по идентификатору",
-            description = "Удаляет данный вид профессии.")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Запрос выполнен успешно",
-                    content = @Content
-            )
-    })
-    @DeleteMapping("/{id}")
-    ResponseEntity<?> delete(
-            @Parameter(description = "идентификатор удаляемой профессии")
-            @PathVariable long id) {
-        professionService.delete(professionService.findById(id));
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
