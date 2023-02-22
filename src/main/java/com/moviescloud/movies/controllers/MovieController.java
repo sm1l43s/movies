@@ -20,6 +20,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,6 +171,25 @@ public class MovieController {
             @PathVariable Long id) {
         movieService.delete(movieService.findById(id));
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Метод позволяет поставить оценку фильму",
+            description = "В качестве параметра выступает ид фильма и оценка по 10-ти бальной системе.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content
+            )
+    })
+    @PostMapping("/{id}/votes")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void vote(@PathVariable long id,
+                                  @Size(max = 10) @Parameter long score) {
+        Movie movie = movieService.findById(id);
+        movie.setVotesScore(movie.getVotesScore() + score);
+        movie.setNumberOfVotes(movie.getNumberOfVotes() + 1);
+        movieService.save(movie);
     }
 
     private List<Genre> mapGenres(Movie movie) {
