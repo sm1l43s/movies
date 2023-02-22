@@ -31,7 +31,9 @@ public class JwtSecurityConfig {
             "/api/v1/profession",
             "/api/v1/profession/**",
             "/api/v1/users",
-            "/api/v1/users/{id}"
+            "/api/v1/users/{id}",
+            "/api/v1/countries",
+            "/api/v1/countries/{id}"
     };
 
     final JwtRequestFilter jwtRequestFilter;
