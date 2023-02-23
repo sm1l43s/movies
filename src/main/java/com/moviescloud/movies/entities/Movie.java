@@ -54,7 +54,7 @@ public class Movie {
     @ManyToMany
     private List<Genre> genres;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Country> countries;
 
     @NotBlank
@@ -68,22 +68,27 @@ public class Movie {
     @JsonIgnore
     @NotBlank
     @Size
-    private Long votesScore;
+    private double votesScore;
 
     @JsonIgnore
     @NotBlank
     @Size
-    private Long numberOfVotes;
+    private double numberOfVotes;
 
     @JsonIgnore
     @OneToMany(cascade =  CascadeType.ALL)
     private List<Review> reviews;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<User> voteUsers;
+
     @OneToOne
     public Type type;
 
     @Size(max = 10)
-    public long getRating() {
+    public double getRating() {
+        if ((this.votesScore == 0) || (this.numberOfVotes == 0)) return 0;
         return this.votesScore / this.numberOfVotes;
     }
 }

@@ -3,11 +3,14 @@ package com.moviescloud.movies.controllers;
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Response;
+import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.services.IGenreService;
 import com.moviescloud.movies.services.IMovieService;
+import com.moviescloud.movies.services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,9 +22,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +34,13 @@ public class MovieController {
 
     final IMovieService movieService;
     final IGenreService genreService;
+
+    final IUserService userService;
     @Autowired
-    public MovieController(IMovieService movieService, IGenreService genreService) {
+    public MovieController(IMovieService movieService, IGenreService genreService, IUserService userService) {
         this.movieService = movieService;
         this.genreService = genreService;
+        this.userService = userService;
     }
 
     @Operation(summary = "Получить список фильмов по различным фильтрам",
@@ -106,7 +111,9 @@ public class MovieController {
             @Parameter(description = "JSON структура объекта фильм.",
                     content = @Content(schema = @Schema(implementation = Movie.class)))
             @RequestBody Movie movie) {
-        movie.setGenres(mapGenres(movie));
+        //movie.setGenres(mapGenres(movie));
+        movie.setNumberOfVotes(0L);
+        movie.setVotesScore(0L);
         return movieService.save(movie);
     }
 
@@ -180,16 +187,54 @@ public class MovieController {
                     responseCode = "200",
                     description = "Запрос выполнен успешно",
                     content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "417",
+                    description = "Неверное значение рейтинга. Рейтинг должен быть между 0 и 10",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Данный пользователь уже оценил данный ресурс.",
+                    content = @Content
             )
     })
     @PostMapping("/{id}/votes")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void vote(@PathVariable long id,
-                                  @Size(max = 10) @Parameter long score) {
+    public ResponseEntity<?> vote(@PathVariable Long id,
+                                  @RequestParam(name = "score") Integer score) {
+        if (score < 0 || score > 10) return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
         Movie movie = movieService.findById(id);
         movie.setVotesScore(movie.getVotesScore() + score);
         movie.setNumberOfVotes(movie.getNumberOfVotes() + 1);
+
+        List<User> users = movie.getVoteUsers();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        for (User u: users) {
+            if (u.getId() == user.getId()) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        users.add(user);
+        movie.setVoteUsers(users);
+
         movieService.save(movie);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Метод позволяет получить список пользователей поставивших оценку фильму",
+            description = "Возвращает список пользователей оценивших по 10-ти бальной системы фильм")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))
+            )
+    })
+    @GetMapping("/{id}/votes")
+    public Iterable<User> getVoteUsersByMovieId(@PathVariable Long id) {
+        Movie movie = movieService.findById(id);
+        return movie.getVoteUsers();
     }
 
     private List<Genre> mapGenres(Movie movie) {
