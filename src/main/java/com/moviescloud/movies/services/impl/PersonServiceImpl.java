@@ -30,7 +30,7 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public Person findById(Long id) {
         log.info("Getting a person by id={}", id);
-        return personRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Person with id="+ id + " not found"));
+        return personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person with id=" + id + " not found"));
     }
 
     @Override

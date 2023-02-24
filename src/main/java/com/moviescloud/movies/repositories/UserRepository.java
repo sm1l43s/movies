@@ -3,6 +3,7 @@ package com.moviescloud.movies.repositories;
 import com.moviescloud.movies.entities.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
 @Repository

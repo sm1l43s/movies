@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtUserDetailsService {
-   final UserRepository userRepository;
+    final UserRepository userRepository;
 
     @Autowired
     public JwtUserDetailsService(UserRepository userRepository) {

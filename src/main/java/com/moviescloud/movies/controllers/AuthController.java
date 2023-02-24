@@ -26,6 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @Tag(name = "Authentication", description = "Набор методов для авторизации и регистрации пользователя.")
@@ -39,6 +40,7 @@ public class AuthController {
     final IUserService userService;
     final PasswordEncoder passwordEncoder;
     final IRoleService roleService;
+
     @Autowired
     public AuthController(JwtUserDetailsService jwtUserDetailsService, JwtTokenService jwtTokenService,
                           CustomAuthenticationManager authenticationManager, IUserService userService,
@@ -67,7 +69,7 @@ public class AuthController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Неверный емайл адрес или пароль.",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )
@@ -100,7 +102,7 @@ public class AuthController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Не уникальный емайл адрес.",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )
@@ -114,7 +116,7 @@ public class AuthController {
             throw new UnauthorizedException("Wrong email address or password!");
         }
 
-        User user = new User(authenticationRequest.getEmail(),passwordEncoder.encode(authenticationRequest.getPassword()),
+        User user = new User(authenticationRequest.getEmail(), passwordEncoder.encode(authenticationRequest.getPassword()),
                 null, null, null, List.of(roleService.findByName("ROLE_USER")));
         userService.save(user);
         return HttpStatus.CREATED;
@@ -126,7 +128,7 @@ public class AuthController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Запрос выполнен успешно.",
-                    content = @Content (
+                    content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = User.class)
                     )
@@ -134,7 +136,7 @@ public class AuthController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Данный пользователь не авторизован.",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )

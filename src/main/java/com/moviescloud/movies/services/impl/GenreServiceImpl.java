@@ -30,7 +30,7 @@ public class GenreServiceImpl implements IGenreService {
     @Override
     public Genre findById(Long id) {
         log.info("Getting a genre by id=" + id);
-        return genreRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Genre with id=" + id + " not found"));
+        return genreRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Genre with id=" + id + " not found"));
     }
 
     @Override

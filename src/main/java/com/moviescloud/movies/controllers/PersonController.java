@@ -21,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +57,7 @@ public class PersonController {
     @GetMapping
     public Response<Person> getAll(
             @Parameter(description = "Номер страницы")
-            @RequestParam(name ="page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
             @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по полю")
@@ -76,7 +77,7 @@ public class PersonController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Персона не найден",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )
@@ -240,7 +241,7 @@ public class PersonController {
 
     private List<Movie> mapMovie(List<Movie> movies) {
         List<Movie> movieList = new ArrayList<>();
-        for (Movie movie: movies) {
+        for (Movie movie : movies) {
             movieList.add(movieService.findById(movie.getId()));
         }
         return movieList;

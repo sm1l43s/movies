@@ -7,7 +7,6 @@ import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.services.IGenreService;
 import com.moviescloud.movies.services.IMovieService;
-import com.moviescloud.movies.services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -35,12 +34,10 @@ public class MovieController {
     final IMovieService movieService;
     final IGenreService genreService;
 
-    final IUserService userService;
     @Autowired
-    public MovieController(IMovieService movieService, IGenreService genreService, IUserService userService) {
+    public MovieController(IMovieService movieService, IGenreService genreService) {
         this.movieService = movieService;
         this.genreService = genreService;
-        this.userService = userService;
     }
 
     @Operation(summary = "Получить список фильмов по различным фильтрам",

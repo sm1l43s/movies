@@ -30,7 +30,7 @@ public class ReviewServiceImpl implements IReviewService {
     @Override
     public Review findById(Long id) {
         log.info("Get a review by id{}", id);
-        return reviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Review with id="+ id +" not found"));
+        return reviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Review with id=" + id + " not found"));
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
@@ -76,7 +77,7 @@ public class Movie {
     private double numberOfVotes;
 
     @JsonIgnore
-    @OneToMany(cascade =  CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @JsonIgnore

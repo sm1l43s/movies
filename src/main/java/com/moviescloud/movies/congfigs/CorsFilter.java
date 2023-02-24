@@ -1,6 +1,7 @@
 package com.moviescloud.movies.congfigs;
 
 import org.springframework.stereotype.Component;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,10 +31,5 @@ public class CorsFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         javax.servlet.Filter.super.init(filterConfig);
-    }
-
-    @Override
-    public void destroy() {
-        javax.servlet.Filter.super.destroy();
     }
 }

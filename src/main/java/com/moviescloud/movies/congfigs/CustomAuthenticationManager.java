@@ -15,11 +15,13 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationManager implements AuthenticationManager {
     final JwtUserDetailsService jwtUserDetailsService;
     final PasswordEncoder passwordEncoder;
+
     @Autowired
     public CustomAuthenticationManager(JwtUserDetailsService jwtUserDetailsService, PasswordEncoder passwordEncoder) {
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UserDetails user = jwtUserDetailsService.loadUserByEmail(authentication.getName());

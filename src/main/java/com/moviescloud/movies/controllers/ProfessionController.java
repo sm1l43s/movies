@@ -47,7 +47,7 @@ public class ProfessionController {
     @GetMapping
     public Response<Profession> getAll(
             @Parameter(description = "Номер страницы")
-            @RequestParam(name ="page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
             @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по - \"id\" (идентификатору) или \"name\" (названию жанра)")
@@ -67,7 +67,7 @@ public class ProfessionController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Жанр не найден",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )

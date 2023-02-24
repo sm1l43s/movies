@@ -21,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class UserController {
     @GetMapping
     public Response<User> getAllUsers(
             @Parameter(description = "Номер страницы")
-            @RequestParam(name ="page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
             @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по полю")
@@ -75,7 +76,7 @@ public class UserController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Пользователь не найден",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )
@@ -98,7 +99,7 @@ public class UserController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Пользователь не найден",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )
@@ -121,7 +122,7 @@ public class UserController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Пользователь не найден",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )
@@ -199,7 +200,7 @@ public class UserController {
 
     private List<Role> mapToRoleUser(List<Role> rawRoles) {
         List<Role> roles = new ArrayList<>();
-        for (Role role: rawRoles) {
+        for (Role role : rawRoles) {
             roles.add(roleService.findById(role.getId()));
         }
         return roles;
