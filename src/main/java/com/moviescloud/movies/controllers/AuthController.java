@@ -1,11 +1,15 @@
 package com.moviescloud.movies.controllers;
 
+import com.moviescloud.movies.authentication.AuthenticationRequest;
+import com.moviescloud.movies.authentication.AuthenticationResponse;
 import com.moviescloud.movies.congfigs.CustomAuthenticationManager;
 import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.exceptions.UnauthorizedException;
 import com.moviescloud.movies.services.IRoleService;
 import com.moviescloud.movies.services.IUserService;
+import com.moviescloud.movies.services.impl.jwt.JwtTokenService;
+import com.moviescloud.movies.services.impl.jwt.JwtUserDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,10 +17,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.moviescloud.movies.authentication.AuthenticationRequest;
-import com.moviescloud.movies.authentication.AuthenticationResponse;
-import com.moviescloud.movies.services.impl.jwt.JwtTokenService;
-import com.moviescloud.movies.services.impl.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
