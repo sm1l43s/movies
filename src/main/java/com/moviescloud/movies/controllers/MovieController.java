@@ -109,7 +109,7 @@ public class MovieController {
             @Parameter(description = "JSON структура объекта фильм.",
                     content = @Content(schema = @Schema(implementation = Movie.class)))
             @RequestBody Movie movie) {
-        //movie.setGenres(mapGenres(movie));
+        movie.setGenres(mapGenres(movie));
         movie.setNumberOfVotes(0L);
         movie.setVotesScore(0L);
         return movieService.save(movie);
@@ -153,7 +153,7 @@ public class MovieController {
             )
     })
     @DeleteMapping
-    public ResponseEntity<?> deleteMovie(
+    public ResponseEntity<HttpStatus> deleteMovie(
             @Parameter(description = "JSON структура объекта жанра",
                     content = @Content(schema = @Schema(implementation = Movie.class)))
             @RequestBody Movie movie) {
@@ -171,7 +171,7 @@ public class MovieController {
             )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMovie(
+    public ResponseEntity<HttpStatus> deleteMovie(
             @Parameter(description = "идентификатор удаляемого фильма.")
             @PathVariable Long id) {
         movieService.delete(movieService.findById(id));
@@ -198,7 +198,7 @@ public class MovieController {
             )
     })
     @PostMapping("/{id}/votes")
-    public ResponseEntity<?> vote(@PathVariable Long id,
+    public ResponseEntity<HttpStatus> vote(@PathVariable Long id,
                                   @RequestParam(name = "score") Integer score) {
         if (score < 0 || score > 10) return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 

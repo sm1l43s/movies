@@ -122,7 +122,7 @@ public class ReviewController {
             )
     })
     @DeleteMapping("/{id}/reviews")
-    public ResponseEntity<?> deleteReview(@PathVariable long id, @RequestBody Review review) {
+    public ResponseEntity<HttpStatus> deleteReview(@PathVariable long id, @RequestBody Review review) {
         Movie movie = movieService.findById(id);
         for (Review r : movie.getReviews()) {
             if (r.getId() == review.getId()) {

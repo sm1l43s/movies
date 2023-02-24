@@ -173,7 +173,7 @@ public class UserController {
             )
     })
     @DeleteMapping
-    public ResponseEntity<?> deleteUser(
+    public ResponseEntity<HttpStatus> deleteUser(
             @Parameter(description = "JSON структура объекта пользователя",
                     content = @Content(schema = @Schema(implementation = User.class)))
             @RequestBody User user) {
@@ -191,7 +191,7 @@ public class UserController {
             )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUserById(
+    public ResponseEntity<HttpStatus> deleteUserById(
             @Parameter(description = "идентификатор удаляемого пользователя")
             @PathVariable Long id) {
         userService.delete(userService.findById(id));

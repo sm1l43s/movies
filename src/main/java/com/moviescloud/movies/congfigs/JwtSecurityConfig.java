@@ -20,6 +20,10 @@ public class JwtSecurityConfig {
             "/swagger-resources/**"
     };
 
+    private static final String[] ADMIN_LIST = {
+            "/api/v1/**"
+    };
+
     final JwtRequestFilter jwtRequestFilter;
 
     @Autowired
@@ -40,9 +44,9 @@ public class JwtSecurityConfig {
                 .antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers(AUTH_WHITE_LIST).permitAll()
                 .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/v1/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/v1/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, ADMIN_LIST).hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, ADMIN_LIST).hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, ADMIN_LIST).hasRole("ADMIN")
                 .anyRequest().hasRole("USER").and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

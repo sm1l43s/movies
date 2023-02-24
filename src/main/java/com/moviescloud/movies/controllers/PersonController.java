@@ -152,7 +152,7 @@ public class PersonController {
             )
     })
     @DeleteMapping("/{id}/movies")
-    public ResponseEntity<?> clearMoviesList(
+    public ResponseEntity<HttpStatus> clearMoviesList(
             @Parameter(description = "идентификатор персоны")
             @PathVariable long id) {
         Person person = personService.findById(id);
@@ -215,7 +215,7 @@ public class PersonController {
             )
     })
     @DeleteMapping
-    public ResponseEntity<?> delete(
+    public ResponseEntity<HttpStatus> delete(
             @Parameter(description = "JSON структура объекта персоны", content = @Content(schema = @Schema(implementation = Person.class)))
             @RequestBody Person person) {
         personService.delete(person);
@@ -232,7 +232,7 @@ public class PersonController {
             )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(
+    public ResponseEntity<HttpStatus> delete(
             @Parameter(description = "идентификатор персоны")
             @PathVariable long id) {
         personService.delete(personService.findById(id));
