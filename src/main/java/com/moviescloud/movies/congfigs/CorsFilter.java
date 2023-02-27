@@ -21,6 +21,7 @@ public class CorsFilter implements Filter {
         response.setHeader("Access-Control-Allow-Headers", "Origin, x-www-form-urlencoded, X-Requested-With, Content-Type, Accept," +
                 "authorization, Authorization, content-type, xsrf-token");
         response.addHeader("Access-Control-Expose-Headers", "xsrf-token");
+
         if ("OPTIONS".equals(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
