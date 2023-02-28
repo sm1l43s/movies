@@ -48,21 +48,21 @@ public class User implements UserDetails {
     private Date birthDay;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private List<Privilege> privileges;
 
-    public User(String email, String password, String firstName, String lastName, Date birthDay, List<Role> roles) {
+    public User(String email, String password, String firstName, String lastName, Date birthDay, List<Privilege> privileges) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
-        this.roles = roles;
+        this.privileges = privileges;
     }
 
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return mapToGrantedAuthorities(this.roles);
+        return mapToGrantedAuthorities(this.privileges);
     }
 
     @JsonIgnore
@@ -95,7 +95,7 @@ public class User implements UserDetails {
         return false;
     }
 
-    private List<GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {
-        return userRoles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
+    private List<GrantedAuthority> mapToGrantedAuthorities(List<Privilege> userPrivileges) {
+        return userPrivileges.stream().map(role -> new SimpleGrantedAuthority(role.getPrivilegeName())).collect(Collectors.toList());
     }
 }

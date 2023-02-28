@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Privilege {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,9 @@ public class Role {
 
     @NotBlank
     @Size(max = 256)
-    private String roleName;
+    private String privilegeName;
 
-    public Role(String roleName) {
-        this.roleName = roleName;
+    public Privilege(String privilegeName) {
+        this.privilegeName = privilegeName;
     }
 }

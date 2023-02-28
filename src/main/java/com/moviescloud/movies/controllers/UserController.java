@@ -1,10 +1,10 @@
 package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Response;
-import com.moviescloud.movies.entities.Role;
+import com.moviescloud.movies.entities.Privilege;
 import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.exceptions.AppException;
-import com.moviescloud.movies.services.IRoleService;
+import com.moviescloud.movies.services.IPrivilegeService;
 import com.moviescloud.movies.services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -31,12 +31,12 @@ import java.util.List;
 public class UserController {
 
     final IUserService userService;
-    final IRoleService roleService;
+    final IPrivilegeService privilegeService;
 
     @Autowired
-    public UserController(IUserService userService, IRoleService roleService) {
+    public UserController(IUserService userService, IPrivilegeService privilegeService) {
         this.userService = userService;
-        this.roleService = roleService;
+        this.privilegeService = privilegeService;
     }
 
     @Operation(summary = "Получить список пользователй по различным фильтрам.",
@@ -94,7 +94,7 @@ public class UserController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Запрос выполнен успешно",
-                    content = @Content(schema = @Schema(implementation = Role.class))
+                    content = @Content(schema = @Schema(implementation = Privilege.class))
             ),
             @ApiResponse(
                     responseCode = "404",
@@ -104,11 +104,11 @@ public class UserController {
                     )
             )
     })
-    @GetMapping("/{id}/roles")
-    public Iterable<Role> getRolesByUser(
+    @GetMapping("/{id}/privileges")
+    public Iterable<Privilege> getRolesByUser(
             @Parameter(description = "идентификатор пользователя")
             @PathVariable Long id) {
-        return userService.findById(id).getRoles();
+        return userService.findById(id).getPrivileges();
     }
 
     @Operation(summary = "Изменить права у пользователя (редактирование ролей) по идентификатору.",
@@ -117,7 +117,7 @@ public class UserController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Запрос выполнен успешно",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = Role.class)))
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = Privilege.class)))
             ),
             @ApiResponse(
                     responseCode = "404",
@@ -127,17 +127,17 @@ public class UserController {
                     )
             )
     })
-    @PutMapping("/{id}/roles")
-    public Iterable<Role> editRolesToUserById(
+    @PutMapping("/{id}/privileges")
+    public Iterable<Privilege> editRolesToUserById(
             @Parameter(description = "идентификатор пользователя")
             @PathVariable Long id,
             @Parameter(description = "Список ролей которыми должен обладать пользователь")
-            @RequestBody List<Role> roles) {
+            @RequestBody List<Privilege> privileges) {
         User user = userService.findById(id);
-        user.setRoles(mapToRoleUser(roles));
+        user.setPrivileges(mapToRoleUser(privileges));
         userService.save(user);
         user = userService.findById(id);
-        return user.getRoles();
+        return user.getPrivileges();
     }
 
     @Operation(summary = "Редактирование информации о пользователе",
@@ -152,7 +152,7 @@ public class UserController {
     @PutMapping
     public User editUserInfo(@RequestBody User user) {
         User userFromDB = userService.findById(user.getId());
-        user.setRoles(userFromDB.getRoles());
+        user.setPrivileges(userFromDB.getPrivileges());
         user.setPassword(userFromDB.getPassword());
         user.setEmail(userFromDB.getEmail());
         return userService.save(user);
@@ -198,11 +198,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private List<Role> mapToRoleUser(List<Role> rawRoles) {
-        List<Role> roles = new ArrayList<>();
-        for (Role role : rawRoles) {
-            roles.add(roleService.findById(role.getId()));
+    private List<Privilege> mapToRoleUser(List<Privilege> rawPrivileges) {
+        List<Privilege> privileges = new ArrayList<>();
+        for (Privilege privilege : rawPrivileges) {
+            privileges.add(privilegeService.findById(privilege.getId()));
         }
-        return roles;
+        return privileges;
     }
 }

@@ -3,10 +3,11 @@ package com.moviescloud.movies.controllers;
 import com.moviescloud.movies.authentication.AuthenticationRequest;
 import com.moviescloud.movies.authentication.AuthenticationResponse;
 import com.moviescloud.movies.congfigs.CustomAuthenticationManager;
+import com.moviescloud.movies.entities.Privilege;
 import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.exceptions.UnauthorizedException;
-import com.moviescloud.movies.services.IRoleService;
+import com.moviescloud.movies.services.IPrivilegeService;
 import com.moviescloud.movies.services.IUserService;
 import com.moviescloud.movies.services.impl.jwt.JwtTokenService;
 import com.moviescloud.movies.services.impl.jwt.JwtUserDetailsService;
@@ -27,6 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Authentication", description = "Набор методов для авторизации и регистрации пользователя.")
@@ -39,18 +41,21 @@ public class AuthController {
     final CustomAuthenticationManager authenticationManager;
     final IUserService userService;
     final PasswordEncoder passwordEncoder;
-    final IRoleService roleService;
+    final IPrivilegeService privilegeService;
 
     @Autowired
-    public AuthController(JwtUserDetailsService jwtUserDetailsService, JwtTokenService jwtTokenService,
-                          CustomAuthenticationManager authenticationManager, IUserService userService,
-                          PasswordEncoder passwordEncoder, IRoleService roleService) {
+    public AuthController(JwtUserDetailsService jwtUserDetailsService,
+                          JwtTokenService jwtTokenService,
+                          CustomAuthenticationManager authenticationManager,
+                          IUserService userService,
+                          PasswordEncoder passwordEncoder,
+                          IPrivilegeService privilegeService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.jwtTokenService = jwtTokenService;
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
+        this.privilegeService = privilegeService;
     }
 
     @Operation(summary = "Метод для авторизации.", description = "Авторизовывает пользователя по емайл адресу" +
@@ -116,8 +121,15 @@ public class AuthController {
             throw new UnauthorizedException("Wrong email address or password!");
         }
 
+        List<Privilege> privileges = new ArrayList<>();
+        privileges.add(privilegeService.findByName("GET_REVIEW"));
+        privileges.add(privilegeService.findByName("CREATE_REVIEW"));
+        privileges.add(privilegeService.findByName("GET_STAFF"));
+        privileges.add(privilegeService.findByName("GET_MOVIE"));
+        privileges.add(privilegeService.findByName("VOTES_MOVIE"));
+
         User user = new User(authenticationRequest.getEmail(), passwordEncoder.encode(authenticationRequest.getPassword()),
-                null, null, null, List.of(roleService.findByName("ROLE_USER")));
+                null, null, null, privileges);
         userService.save(user);
         return HttpStatus.CREATED;
     }
