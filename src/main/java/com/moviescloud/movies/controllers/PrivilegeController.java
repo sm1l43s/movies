@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/privileges")
 public class PrivilegeController {
 
-    final IPrivilegeService roleService;
+    final IPrivilegeService privilegeService;
 
     @Autowired
-    public PrivilegeController(IPrivilegeService roleService) {
-        this.roleService = roleService;
+    public PrivilegeController(IPrivilegeService privilegeService) {
+        this.privilegeService = privilegeService;
     }
 
     @Operation(summary = "Получить список привилегий для пользователя по различным фильтрам",
@@ -45,14 +45,14 @@ public class PrivilegeController {
             )
     })
     @GetMapping
-    public Response<Privilege> getAllRoles(
+    public Response<Privilege> getAllPrivileges(
             @Parameter(description = "Номер страницы")
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
             @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по - \"id\" (идентификатору) или \"name\" (названию жанра)")
             @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
-        Page<Privilege> pages = roleService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        Page<Privilege> pages = privilegeService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
         return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
@@ -73,9 +73,9 @@ public class PrivilegeController {
             )
     })
     @GetMapping("/{id}")
-    public Privilege getRoleById(
+    public Privilege getPrivilegesById(
             @Parameter(description = "идентификатор привилегии")
             @PathVariable Long id) {
-        return roleService.findById(id);
+        return privilegeService.findById(id);
     }
 }

@@ -96,6 +96,6 @@ public class User implements UserDetails {
     }
 
     private List<GrantedAuthority> mapToGrantedAuthorities(List<Privilege> userPrivileges) {
-        return userPrivileges.stream().map(role -> new SimpleGrantedAuthority(role.getPrivilegeName())).collect(Collectors.toList());
+        return userPrivileges.stream().map(privilege -> new SimpleGrantedAuthority(privilege.getPrivilegeName())).collect(Collectors.toList());
     }
 }

@@ -105,7 +105,7 @@ public class UserController {
             )
     })
     @GetMapping("/{id}/privileges")
-    public Iterable<Privilege> getRolesByUser(
+    public Iterable<Privilege> getPrivilegesByUser(
             @Parameter(description = "идентификатор пользователя")
             @PathVariable Long id) {
         return userService.findById(id).getPrivileges();
@@ -128,13 +128,13 @@ public class UserController {
             )
     })
     @PutMapping("/{id}/privileges")
-    public Iterable<Privilege> editRolesToUserById(
+    public Iterable<Privilege> editPrivilegesToUserById(
             @Parameter(description = "идентификатор пользователя")
             @PathVariable Long id,
             @Parameter(description = "Список ролей которыми должен обладать пользователь")
             @RequestBody List<Privilege> privileges) {
         User user = userService.findById(id);
-        user.setPrivileges(mapToRoleUser(privileges));
+        user.setPrivileges(mapToPrivilegesUser(privileges));
         userService.save(user);
         user = userService.findById(id);
         return user.getPrivileges();
@@ -198,7 +198,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private List<Privilege> mapToRoleUser(List<Privilege> rawPrivileges) {
+    private List<Privilege> mapToPrivilegesUser(List<Privilege> rawPrivileges) {
         List<Privilege> privileges = new ArrayList<>();
         for (Privilege privilege : rawPrivileges) {
             privileges.add(privilegeService.findById(privilege.getId()));
