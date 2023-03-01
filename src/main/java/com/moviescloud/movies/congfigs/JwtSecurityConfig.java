@@ -20,22 +20,22 @@ public class JwtSecurityConfig {
             "/swagger-resources/**"
     };
 
-    private final String[] URL_MOVIE_LIST = {
+    private static final String[] URL_MOVIE_LIST = {
             "/api/v1/movies",
             "/api/v1/movies/{id}"
     };
 
-    private final String[] URL_STAFF_LIST = {
+    private static final String[] URL_STAFF_LIST = {
             "/api/v1/staff",
             "/api/v1/staff/**"
     };
 
-    private final String[] URL_USER_LIST = {
+    private static final String[] URL_USER_LIST = {
             "/api/v1/users",
             "/api/v1/users/{id}"
     };
 
-    private final String[] URL_REVIEW_LIST = {
+    private static final String[] URL_REVIEW_LIST = {
             "/api/v1/movies/reviews",
             "/api/v1/movies/{id}/reviews"
     };
