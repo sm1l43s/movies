@@ -5,7 +5,6 @@ import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Type;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

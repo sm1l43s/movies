@@ -62,9 +62,9 @@ public class JwtSecurityConfig {
                 .antMatchers(HttpMethod.GET).permitAll()
 
                 .antMatchers(HttpMethod.GET, URL_MOVIE_LIST).hasAuthority("GET_MOVIE")
-                .antMatchers(HttpMethod.POST, URL_MOVIE_LIST).hasAuthority("CREATE_POST")
-                .antMatchers(HttpMethod.PUT, URL_MOVIE_LIST).hasAuthority("EDIT_POST")
-                .antMatchers(HttpMethod.DELETE, URL_MOVIE_LIST).hasAuthority("DELETE_POST")
+                .antMatchers(HttpMethod.POST, URL_MOVIE_LIST).hasAuthority("CREATE_MOVIE")
+                .antMatchers(HttpMethod.PUT, URL_MOVIE_LIST).hasAuthority("EDIT_MOVIE")
+                .antMatchers(HttpMethod.DELETE, URL_MOVIE_LIST).hasAuthority("DELETE_MOVIE")
 
                 .antMatchers(HttpMethod.POST, "/api/v1/{id}/votes").hasAuthority("VOTES_MOVIE")
 
