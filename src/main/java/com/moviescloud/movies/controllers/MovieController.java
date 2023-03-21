@@ -1,12 +1,11 @@
 package com.moviescloud.movies.controllers;
 
-import com.moviescloud.movies.entities.Genre;
-import com.moviescloud.movies.entities.Movie;
-import com.moviescloud.movies.entities.Response;
-import com.moviescloud.movies.entities.User;
+import com.moviescloud.movies.entities.*;
 import com.moviescloud.movies.exceptions.AppException;
+import com.moviescloud.movies.services.ICountryService;
 import com.moviescloud.movies.services.IGenreService;
 import com.moviescloud.movies.services.IMovieService;
+import com.moviescloud.movies.services.ITypeServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -35,10 +34,17 @@ public class MovieController {
     final IMovieService movieService;
     final IGenreService genreService;
 
+    final ITypeServices typeServices;
+
+    final ICountryService countryService;
+
     @Autowired
-    public MovieController(IMovieService movieService, IGenreService genreService) {
+    public MovieController(IMovieService movieService, IGenreService genreService,
+                           ITypeServices typeServices, ICountryService countryService) {
         this.movieService = movieService;
         this.genreService = genreService;
+        this.typeServices = typeServices;
+        this.countryService = countryService;
     }
 
     @Operation(summary = "Получить список фильмов по различным фильтрам",
@@ -62,8 +68,39 @@ public class MovieController {
             @Parameter(description = "Количество элементов в списке")
             @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по указанному полю")
-            @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
-        Page<Movie> pages = movieService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+            @RequestParam(name = "order", required = false, defaultValue = "id") String order,
+            @Parameter(description = "Поиск по ключевому слову, которое встречается в названии фильма (сериала, тв-шоу)")
+            @RequestParam(name = "keyword", required = false) String keyword,
+            @Parameter(description = "Сортировка по странам (id страны). Например countries=1")
+            @RequestParam(name = "countries", required = false) Long idCountries,
+            @Parameter(description = "Сортировка по жанрам (id жанра). Например genres=1")
+            @RequestParam(name = "genres", required = false) Long idGenres,
+            @Parameter(description = "Сортировка по типам - фильм, сериал, тв-шоу, мини-сериал (id типа). Например type=1")
+            @RequestParam(name = "type", required = false) Long idType) {
+
+        Page<Movie> pages = null;
+        if (keyword != null) {
+            pages = movieService.findAllByName(PageRequest.of(page, pageSize, Sort.by(order)), keyword);
+        }
+
+        if (idCountries != null) {
+            Country country = countryService.findById(idCountries);
+            pages = movieService.findAllByCountries(PageRequest.of(page, pageSize, Sort.by(order)), country);
+        }
+
+        if (idGenres != null) {
+            Genre genre = genreService.findById(idGenres);
+            pages = movieService.findAllByGenres(PageRequest.of(page, pageSize, Sort.by(order)), genre);
+        }
+
+        if (idType != null) {
+            Type type = typeServices.findById(idType);
+            pages = movieService.findAllByType(PageRequest.of(page, pageSize, Sort.by(order)), type);
+        }
+
+         if (pages == null){
+             pages = movieService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+         }
         return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
