@@ -64,7 +64,7 @@ public class MovieController {
     @GetMapping
     public Response<Movie> getMovies(
             @Parameter(description = "Номер страницы")
-            @RequestParam(name ="page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
             @RequestParam(name = "size", required = false, defaultValue = "50") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по указанному полю")
@@ -98,9 +98,9 @@ public class MovieController {
             pages = movieService.findAllByType(PageRequest.of(page, pageSize, Sort.by(order)), type);
         }
 
-         if (pages == null){
-             pages = movieService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
-         }
+        if (pages == null) {
+            pages = movieService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));
+        }
         return new Response<>(HttpStatus.OK, pages.getContent(), pages.getTotalElements(), pages.getTotalPages());
     }
 
@@ -115,7 +115,7 @@ public class MovieController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Фильм не найден",
-                    content = @Content (
+                    content = @Content(
                             schema = @Schema(implementation = AppException.class)
                     )
             )
@@ -236,7 +236,7 @@ public class MovieController {
     })
     @PostMapping("/{id}/votes")
     public ResponseEntity<HttpStatus> vote(@PathVariable Long id,
-                                  @RequestParam(name = "score") Integer score) {
+                                           @RequestParam(name = "score") Integer score) {
         if (score < 0 || score > 10) return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
         Movie movie = movieService.findById(id);
@@ -245,7 +245,7 @@ public class MovieController {
 
         List<User> users = movie.getVoteUsers();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        for (User u: users) {
+        for (User u : users) {
             if (u.getId() == user.getId()) {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
@@ -274,7 +274,7 @@ public class MovieController {
 
     private List<Genre> mapGenres(Movie movie) {
         List<Genre> genres = new ArrayList<>();
-        for (Genre genre: movie.getGenres()) {
+        for (Genre genre : movie.getGenres()) {
             genres.add(genreService.findById(genre.getId()));
         }
         return genres;
