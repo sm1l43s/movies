@@ -49,7 +49,7 @@ public class ProfessionController {
             @Parameter(description = "Номер страницы")
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
-            @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
+            @RequestParam(name = "size", required = false, defaultValue = "50") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по - \"id\" (идентификатору) или \"name\" (названию жанра)")
             @RequestParam(name = "order", required = false, defaultValue = "id") String order) {
         Page<Profession> pages = professionService.findAll(PageRequest.of(page, pageSize, Sort.by(order)));

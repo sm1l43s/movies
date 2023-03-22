@@ -66,7 +66,7 @@ public class MovieController {
             @Parameter(description = "Номер страницы")
             @RequestParam(name ="page", required = false, defaultValue = "0") int page,
             @Parameter(description = "Количество элементов в списке")
-            @RequestParam(name = "size", required = false, defaultValue = "10") int pageSize,
+            @RequestParam(name = "size", required = false, defaultValue = "50") int pageSize,
             @Parameter(description = "Сортировка выводимых значений по указанному полю")
             @RequestParam(name = "order", required = false, defaultValue = "id") String order,
             @Parameter(description = "Поиск по ключевому слову, которое встречается в названии фильма (сериала, тв-шоу)")
