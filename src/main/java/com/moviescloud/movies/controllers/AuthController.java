@@ -115,9 +115,9 @@ public class AuthController {
     @PostMapping("/signup")
     public HttpStatus signup(
             @Parameter(description = "Емайл адрес и пароль для регистрации.")
-            @RequestBody AuthenticationRequest authenticationRequest) {
+            @RequestBody AuthenticationRequest authentication) {
 
-        if (userService.existsUserByEmail(authenticationRequest.getEmail())) {
+        if (userService.existsUserByEmail(authentication.getEmail())) {
             throw new UnauthorizedException("Wrong email address or password!");
         }
 
@@ -128,9 +128,8 @@ public class AuthController {
         privileges.add(privilegeService.findByName("GET_MOVIE"));
         privileges.add(privilegeService.findByName("VOTES_MOVIE"));
 
-        User user = new User(authenticationRequest.getEmail(), passwordEncoder.encode(authenticationRequest.getPassword()),
-                null, null, null, privileges);
-        userService.save(user);
+        userService.save(new User(authentication.getEmail(), passwordEncoder.encode(authentication.getPassword()),
+                authentication.getFirstName(), authentication.getLastName(), authentication.getBirthDay(), privileges));
         return HttpStatus.CREATED;
     }
 
