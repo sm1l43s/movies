@@ -1,4 +1,4 @@
-package com.moviescloud.movies.authentication;
+package com.moviescloud.movies.dto.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

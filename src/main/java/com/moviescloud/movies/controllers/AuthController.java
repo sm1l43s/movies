@@ -1,7 +1,7 @@
 package com.moviescloud.movies.controllers;
 
-import com.moviescloud.movies.authentication.AuthenticationRequest;
-import com.moviescloud.movies.authentication.AuthenticationResponse;
+import com.moviescloud.movies.dto.authentication.AuthenticationRequest;
+import com.moviescloud.movies.dto.authentication.AuthenticationResponse;
 import com.moviescloud.movies.congfigs.CustomAuthenticationManager;
 import com.moviescloud.movies.entities.Privilege;
 import com.moviescloud.movies.entities.User;

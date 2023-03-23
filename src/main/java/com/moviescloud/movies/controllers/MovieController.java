@@ -1,5 +1,6 @@
 package com.moviescloud.movies.controllers;
 
+import com.moviescloud.movies.dto.MovieDto;
 import com.moviescloud.movies.entities.*;
 import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.services.ICountryService;
@@ -23,7 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Movies", description = "Набор методов для работы с данными о фильмах.")
@@ -32,6 +32,7 @@ import java.util.List;
 public class MovieController {
 
     final IMovieService movieService;
+
     final IGenreService genreService;
 
     final ITypeServices typeServices;
@@ -144,11 +145,22 @@ public class MovieController {
     @PostMapping
     public Movie add(
             @Parameter(description = "JSON структура объекта фильм.",
-                    content = @Content(schema = @Schema(implementation = Movie.class)))
-            @RequestBody Movie movie) {
-        movie.setGenres(mapGenres(movie));
+                    content = @Content(schema = @Schema(implementation = MovieDto.class)))
+            @RequestBody MovieDto movieDto) {
+        Movie movie = new Movie();
+        movie.setNameRu(movieDto.getNameRu());
+        movie.setNameEn(movieDto.getNameEn());
+        movie.setPosterUrl(movieDto.getPosterUrl());
+        movie.setTrailerUrl(movieDto.getTrailerUrl());
+        movie.setDescription(movieDto.getDescription());
+        movie.setSlogan(movieDto.getSlogan());
+        movie.setYear(movieDto.getYear());
+        movie.setMovieLength(movieDto.getMovieLength());
+        movie.setGenres(movieDto.getGenres());
+        movie.setCountries(movieDto.getCountries());
         movie.setNumberOfVotes(0L);
         movie.setVotesScore(0L);
+        movie.setType(movieDto.getType());
         return movieService.save(movie);
     }
 
@@ -171,7 +183,7 @@ public class MovieController {
             @Parameter(description = "JSON структура объекта фильм",
                     content = @Content(schema = @Schema(implementation = Movie.class)))
             @RequestBody Movie movie) {
-        movie.setGenres(mapGenres(movie));
+        movie.setGenres(movie.getGenres());
         return movieService.save(movie);
     }
 
@@ -270,13 +282,5 @@ public class MovieController {
     public Iterable<User> getVoteUsersByMovieId(@PathVariable Long id) {
         Movie movie = movieService.findById(id);
         return movie.getVoteUsers();
-    }
-
-    private List<Genre> mapGenres(Movie movie) {
-        List<Genre> genres = new ArrayList<>();
-        for (Genre genre : movie.getGenres()) {
-            genres.add(genreService.findById(genre.getId()));
-        }
-        return genres;
     }
 }

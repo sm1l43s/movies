@@ -1,5 +1,6 @@
 package com.moviescloud.movies.controllers;
 
+import com.moviescloud.movies.dto.ReviewDto;
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.entities.Review;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Tag(name = "Reviews", description = "Набор методов для работы с отзывами для фильмов.")
@@ -94,10 +96,14 @@ public class ReviewController {
     @PostMapping("/{id}/reviews")
     public Review addReviewToMovie(
             @PathVariable Long id,
-            @RequestBody Review review) {
+            @RequestBody ReviewDto reviewDto) {
         Movie movie = movieService.findById(id);
 
+        Review review = new Review();
         review.setAuthor((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        review.setTitle(reviewDto.getTitle());
+        review.setDescription(reviewDto.getDescription());
+        review.setCreatedAt(new Date());
 
         List<Review> reviews = movie.getReviews();
         reviews.add(review);

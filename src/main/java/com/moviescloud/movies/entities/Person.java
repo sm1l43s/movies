@@ -38,8 +38,8 @@ public class Person {
     private Date birthday;
 
     @NotBlank
-    @Size(min = 5, max = 256)
-    private String birthPlace;
+    @OneToOne
+    private Country birthPlace;
 
     @ManyToMany
     @JsonIgnore
