@@ -6,14 +6,30 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  devtools:
-    livereload:
-      enabled: true
+    show-sql: true
+
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
 server:
   port: ${PORT:8080}
+
 jwt:
   secret: very_long_text
   validity: 43200000
+
+management:
+  endpoints:
+    web:
+      base-path: /
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  health:
+    db:
+      enabled: true
+    diskspace:
+      enabled: true
