@@ -7,7 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
 
 springdoc:
   swagger-ui:
@@ -15,7 +15,7 @@ springdoc:
 
 #Settigns servers
 server:
-  port: ${PORT:8080}
+  port: 8080
 
 #Settings JWT
 jwt:

@@ -12,6 +12,7 @@
 	<artifactId>movies</artifactId>
 	<version>1.0</version>
 	<name>movies</name>
+	<packaging>jar</packaging>
 	<description>Spring boot API with information a movies</description>
 	<properties>
 		<java.version>11</java.version>
