@@ -8,13 +8,21 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
-springdoc:
-  swagger-ui:
-    path: /swagger-ui
 
 #Settigns servers
 server:
-  port: 8080
+  port: 433
+  ssl:
+    key-store: classpath:movies.p12
+    key-store-password: password
+    key-store-type: pkcs12
+    key-alias: movies
+    key-password: password
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
 
 #Settings JWT
 jwt:
