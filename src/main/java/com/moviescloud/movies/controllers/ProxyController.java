@@ -4,7 +4,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,9 +26,8 @@ public class ProxyController {
 
     private String userInfo = "YURY:2195662Aa";
 
-    @RequestMapping("/{endpoint}")
+    @RequestMapping("/1/**")
     public ResponseEntity mirrorRest(@RequestBody(required = false) String body,
-                                     @PathVariable("endpoint") String endpoint,
                                      HttpMethod method, HttpServletRequest request, HttpServletResponse response)
             throws URISyntaxException {
         String requestUrl = request.getRequestURI();
@@ -51,11 +49,22 @@ public class ProxyController {
         HttpEntity<String> httpEntity = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
         try {
-            return restTemplate.exchange(uri+"/"+endpoint, method, httpEntity, String.class);
+            return restTemplate.exchange(uri, method, httpEntity, String.class);
         } catch(HttpStatusCodeException e) {
             return ResponseEntity.status(e.getRawStatusCode())
                     .headers(e.getResponseHeaders())
                     .body(e.getResponseBodyAsString());
         }
+    }
+
+    @RequestMapping("/2/**")
+    public String mirrorRest(@RequestBody String body, HttpMethod method, HttpServletRequest request) throws URISyntaxException
+    {
+        URI uri = new URI("http", userInfo, server, port, request.getRequestURI(), request.getQueryString(), null);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange(uri, method, new HttpEntity<String>(body), String.class);
+
+        return responseEntity.getBody();
     }
 }
