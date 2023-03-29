@@ -9,10 +9,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 #Settigns servers
 server:
   port: 8080
+  tomcat:
+    accesslog:
+      enabled: true
 
 springdoc:
   swagger-ui:

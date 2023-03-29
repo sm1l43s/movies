@@ -36,9 +36,9 @@ public class Movie {
     @Size(max = 1024)
     private String trailerUrl;
 
-    @Lob
     @NotBlank
     @Size(max = 64000)
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @NotBlank

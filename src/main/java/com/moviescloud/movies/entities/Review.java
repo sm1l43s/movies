@@ -25,9 +25,9 @@ public class Review {
     @Size(max = 2500)
     private String title;
 
-    @Lob
     @NotBlank
     @Size(max = 640000)
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @PastOrPresent
