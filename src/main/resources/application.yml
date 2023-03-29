@@ -1,13 +1,14 @@
 #Settigns spring's
 spring:
   datasource:
-    url: jdbc:mysql://localhost/movies
+    url: jdbc:postgres://dpg-cghvs5g2qv2772gan2j0-a.frankfurt-postgres.render.com/movies_jhmn
     username: user
-    password: user
+    password: xGkhZtjVoVkTEdxTze5YNLIjKrPtj7mC
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
 
 #Settigns servers
 server:
