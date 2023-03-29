@@ -20,15 +20,14 @@ import java.util.Enumeration;
 @RestController
 public class ProxyController {
 
-    private String server = "134.17.25.94";
-    private int port = 55052;
-    private String userInfo = "YURY:2195662Aa";
-
     @RequestMapping("/**")
     public ResponseEntity mirrorRest(@RequestBody(required = false) String body,
                                      HttpMethod method, HttpServletRequest request, HttpServletResponse response)
             throws URISyntaxException {
         String requestUrl = request.getRequestURI();
+        int port = 55052;
+        String server = "134.17.25.94";
+        String userInfo = "YURY:2195662Aa";
         URI uri = new URI("http", userInfo, server, port, null, null, null);
         uri = UriComponentsBuilder.fromUri(uri)
                 .path(requestUrl)
@@ -45,7 +44,7 @@ public class ProxyController {
         HttpEntity<String> httpEntity = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
         try {
-            System.out.println("Proxy to: " + uri + body);
+            System.out.println("Proxy URL to: " + uri + body);
             return restTemplate.exchange(uri+body, method, httpEntity, String.class);
         } catch(HttpStatusCodeException e) {
             return ResponseEntity.status(e.getRawStatusCode())
