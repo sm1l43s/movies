@@ -11,14 +11,7 @@ spring:
 
 #Settigns servers
 server:
-  port: 433
-  ssl:
-    key-store: classpath:movies.p12
-    key-store-password: password
-    key-store-type: pkcs12
-    key-alias: movies
-    key-password: password
-    enabled: true
+  port: 8080
 
 springdoc:
   swagger-ui:
