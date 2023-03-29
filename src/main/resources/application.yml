@@ -1,7 +1,7 @@
 #Settigns spring's
 spring:
   datasource:
-    url: jdbc:postgres://dpg-cghvs5g2qv2772gan2j0-a.frankfurt-postgres.render.com/movies_jhmn
+    url: jdbc:postgresql://dpg-cghvs5g2qv2772gan2j0-a.frankfurt-postgres.render.com/movies_jhmn
     username: user
     password: xGkhZtjVoVkTEdxTze5YNLIjKrPtj7mC
     driver-class-name: org.postgresql.Driver
