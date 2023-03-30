@@ -44,8 +44,8 @@ public class ProxyController {
         HttpEntity<String> httpEntity = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
         try {
-            System.out.println("Proxy URL to: " + uri + body);
-            return restTemplate.exchange(uri+body, method, httpEntity, String.class);
+            System.out.println("Proxy URL to: " + uri);
+            return restTemplate.exchange(uri, method, httpEntity, String.class);
         } catch(HttpStatusCodeException e) {
             return ResponseEntity.status(e.getRawStatusCode())
                     .headers(e.getResponseHeaders())
