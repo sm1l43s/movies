@@ -8,7 +8,7 @@ RUN mvn clean package -Pprod -DskipTests
 #
 # Package stage
 #
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jdk-slim
 COPY --from=build /target/movies-1.0.jar movies.jar
 # ENV PORT=8080
 EXPOSE 8080
