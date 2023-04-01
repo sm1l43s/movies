@@ -21,28 +21,27 @@ public class Movie {
     private long id;
 
     @NotBlank
-    @Size(min = 2, max = 1024)
+    @Column(columnDefinition="character varying(2048)")
     private String nameRu;
 
     @NotBlank
-    @Size(min = 2, max = 1024)
+    @Column(columnDefinition="character varying(2048)")
     private String nameEn;
 
     @NotBlank
-    @Size(min = 5, max = 2048)
+    @Column(columnDefinition="character varying(2048)")
     private String posterUrl;
 
     @NotBlank
-    @Size(max = 2048)
+    @Column(columnDefinition="character varying(2048)")
     private String trailerUrl;
 
     @NotBlank
-    @Size(max = 64000)
     @Column(columnDefinition="TEXT")
     private String description;
 
     @NotBlank
-    @Size(min = 5, max = 2048)
+    @Column(columnDefinition="character varying(2048)")
     private String slogan;
 
     @PastOrPresent

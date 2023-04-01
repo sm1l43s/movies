@@ -161,6 +161,8 @@ public class MovieController {
         movie.setNumberOfVotes(0L);
         movie.setVotesScore(0L);
         movie.setType(movieDto.getType());
+        movie.setRatingImdb(movieDto.getRatingImdb());
+        movie.setRatingKinopoisk(movieDto.getRatingKinopoisk());
         return movieService.save(movie);
     }
 
