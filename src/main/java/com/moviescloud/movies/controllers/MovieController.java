@@ -163,6 +163,7 @@ public class MovieController {
         movie.setType(movieDto.getType());
         movie.setRatingImdb(movieDto.getRatingImdb());
         movie.setRatingKinopoisk(movieDto.getRatingKinopoisk());
+        movie.setMovieLength(movieDto.getMovieLength());
         return movieService.save(movie);
     }
 
