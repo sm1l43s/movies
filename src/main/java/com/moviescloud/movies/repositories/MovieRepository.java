@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepository extends PagingAndSortingRepository<Movie, Long> {
+
     Page<Movie> findAllByNameRuContainingIgnoreCase(Pageable pageable, String keyword);
     Page<Movie> findAllByType(Pageable pageable, Type type);
     Page<Movie> findAllByGenres(Pageable pageable, Genre genre);

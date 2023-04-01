@@ -21,19 +21,19 @@ public class Movie {
     private long id;
 
     @NotBlank
-    @Size(min = 2, max = 256)
+    @Size(min = 2, max = 1024)
     private String nameRu;
 
     @NotBlank
-    @Size(min = 2, max = 256)
+    @Size(min = 2, max = 1024)
     private String nameEn;
 
     @NotBlank
-    @Size(min = 5, max = 1024)
+    @Size(min = 5, max = 2048)
     private String posterUrl;
 
     @NotBlank
-    @Size(max = 1024)
+    @Size(max = 2048)
     private String trailerUrl;
 
     @NotBlank
@@ -42,7 +42,7 @@ public class Movie {
     private String description;
 
     @NotBlank
-    @Size(min = 5, max = 256)
+    @Size(min = 5, max = 2048)
     private String slogan;
 
     @PastOrPresent

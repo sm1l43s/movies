@@ -1,9 +1,9 @@
 #Settigns spring's
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-cghvs5g2qv2772gan2j0-a.frankfurt-postgres.render.com/movies_jhmn
-    username: user
-    password: xGkhZtjVoVkTEdxTze5YNLIjKrPtj7mC
+    url: jdbc:postgresql://${DB_URL:localhost/movies}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -25,19 +25,3 @@ springdoc:
 jwt:
   secret: very_long_text
   validity: 43200000
-
-#Settings Actuator
-management:
-  endpoints:
-    web:
-      base-path: /
-    enabled-by-default: false
-  endpoint:
-    health:
-      enabled: true
-      show-details: always
-  health:
-    db:
-      enabled: true
-    diskspace:
-      enabled: true

@@ -164,6 +164,14 @@ public class MovieController {
         return movieService.save(movie);
     }
 
+    @PostMapping("/list")
+    public ResponseEntity addList(@RequestBody List<MovieDto> movieDtoList) {
+        for (MovieDto m: movieDtoList) {
+            add(m);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @Operation(summary = "Изменить данные о фильме",
             description = "Изменяет и возвращает базовые данные о фильме.")
     @ApiResponses(value = {
