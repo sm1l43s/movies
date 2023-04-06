@@ -1,10 +1,13 @@
 # MOVIES
-RESTful API for searching movies
+REST API for searching movies
 
 ## General info
 This Rest API is developed using Java language and Spring boot framework. In this project API is programed to make a search which will look in the database for existing data and throw results for a movie. Search results can show listings of all movies that match the search criteria with details about the movie.
 While running jar file for first time whole database structure is being initialized using JPA and Hibernate. 
 
+### Deployed API
+You can view the deployed application at the following URL - https://movies-cloud.onrender.com
+Swagger UI the deployed application at the following URL - https://movies-cloud.onrender.com/swagger-ui/index.html#/
 ## Technologies
 * Java - version 11
 * Spring Boot - version 2.7.8
@@ -12,7 +15,7 @@ While running jar file for first time whole database structure is being initiali
 * Spring Security - version 2.7.8
 * PostgreSQL - version 15
 * Apache Maven - version 3.9.1
-* Spring doc Swagger
+* Spring doc Swagger UI
 * Project Lombok
 * Java JWT - version 4.2.
 
