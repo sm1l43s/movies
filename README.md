@@ -59,9 +59,9 @@ this runs at port 8080 and hence all endpoints can be accessed starting from htt
 ## How to use with Swagger UI
 
 You can use Swagger UI from http://localhost:8080/swagger-ui.html
-![image](https://user-images.githubusercontent.com/52451893/104134890-bf9a0100-538c-11eb-9ba4-0ed29cf273ce.png)
+![image](https://github.com/sm1l43s/movies/blob/master/src/main/resources/img/img.png)
 
 
 It has inbuilt functionalities to try out the API without having to install and use Postman
 
-![image](https://user-images.githubusercontent.com/52451893/104135183-b316a800-538e-11eb-9f34-7b46ac37f550.png)
+![image](https://github.com/sm1l43s/movies/blob/master/src/main/resources/img/img-1.png)
