@@ -1,5 +1,6 @@
 package com.moviescloud.movies.controllers;
 
+import com.moviescloud.movies.dto.AuthenticationRequestDto;
 import com.moviescloud.movies.dto.authentication.AuthenticationRequest;
 import com.moviescloud.movies.dto.authentication.AuthenticationResponse;
 import com.moviescloud.movies.congfigs.CustomAuthenticationManager;
@@ -82,7 +83,7 @@ public class AuthController {
     @PostMapping("/signin")
     public AuthenticationResponse signing(
             @Parameter(description = "Емайл адрес и пароль для авторизации")
-            @RequestBody AuthenticationRequest authenticationRequest) {
+            @RequestBody AuthenticationRequestDto authenticationRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getEmail(), authenticationRequest.getPassword()));
