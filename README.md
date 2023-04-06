@@ -64,4 +64,4 @@ You can use Swagger UI from http://localhost:8080/swagger-ui.html
 
 It has inbuilt functionalities to try out the API without having to install and use Postman
 
-![image](https://github.com/sm1l43s/movies/blob/master/src/main/resources/img/img-1.png)
+![image](https://github.com/sm1l43s/movies/blob/master/src/main/resources/img/img_1.png)
