@@ -7,6 +7,7 @@ While running jar file for first time whole database structure is being initiali
 
 ### Deployed API
 You can view the deployed application at the following URL - https://movies-cloud.onrender.com
+<br>
 Swagger UI the deployed application at the following URL - https://movies-cloud.onrender.com/swagger-ui/index.html#/
 ## Technologies
 * Java - version 11
