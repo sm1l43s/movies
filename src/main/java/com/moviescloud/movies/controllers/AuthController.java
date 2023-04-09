@@ -1,9 +1,9 @@
 package com.moviescloud.movies.controllers;
 
+import com.moviescloud.movies.congfigs.CustomAuthenticationManager;
 import com.moviescloud.movies.dto.AuthenticationRequestDto;
 import com.moviescloud.movies.dto.authentication.AuthenticationRequest;
 import com.moviescloud.movies.dto.authentication.AuthenticationResponse;
-import com.moviescloud.movies.congfigs.CustomAuthenticationManager;
 import com.moviescloud.movies.entities.Privilege;
 import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.exceptions.AppException;
@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,29 +35,15 @@ import java.util.List;
 @Tag(name = "Authentication", description = "Набор методов для авторизации и регистрации пользователя.")
 @RestController
 @RequestMapping("/api/v1/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    final JwtUserDetailsService jwtUserDetailsService;
-    final JwtTokenService jwtTokenService;
-    final CustomAuthenticationManager authenticationManager;
-    final IUserService userService;
-    final PasswordEncoder passwordEncoder;
-    final IPrivilegeService privilegeService;
-
-    @Autowired
-    public AuthController(JwtUserDetailsService jwtUserDetailsService,
-                          JwtTokenService jwtTokenService,
-                          CustomAuthenticationManager authenticationManager,
-                          IUserService userService,
-                          PasswordEncoder passwordEncoder,
-                          IPrivilegeService privilegeService) {
-        this.jwtUserDetailsService = jwtUserDetailsService;
-        this.jwtTokenService = jwtTokenService;
-        this.authenticationManager = authenticationManager;
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-        this.privilegeService = privilegeService;
-    }
+    private final JwtUserDetailsService jwtUserDetailsService;
+    private final JwtTokenService jwtTokenService;
+    private final CustomAuthenticationManager authenticationManager;
+    private final IUserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final IPrivilegeService privilegeService;
 
     @Operation(summary = "Метод для авторизации.", description = "Авторизовывает пользователя по емайл адресу" +
             " и паролю и возвращает токен для доступа к ресурсам сервера. Токен действителен 12 часов, после чего требуется переавторизоваться.")

@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -29,24 +29,13 @@ import java.util.List;
 @Tag(name = "Movies", description = "Набор методов для работы с данными о фильмах.")
 @RestController
 @RequestMapping("/api/v1/movies")
+@RequiredArgsConstructor
 public class MovieController {
 
-    final IMovieService movieService;
-
-    final IGenreService genreService;
-
-    final ITypeServices typeServices;
-
-    final ICountryService countryService;
-
-    @Autowired
-    public MovieController(IMovieService movieService, IGenreService genreService,
-                           ITypeServices typeServices, ICountryService countryService) {
-        this.movieService = movieService;
-        this.genreService = genreService;
-        this.typeServices = typeServices;
-        this.countryService = countryService;
-    }
+    private final IMovieService movieService;
+    private final IGenreService genreService;
+    private final ITypeServices typeServices;
+    private final ICountryService countryService;
 
     @Operation(summary = "Получить список фильмов по различным фильтрам",
             description = "Возвращает список фильмов с пагинацией. Каждая страница содержит по умолчанию 10 элементов.")
@@ -147,32 +136,32 @@ public class MovieController {
             @Parameter(description = "JSON структура объекта фильм.",
                     content = @Content(schema = @Schema(implementation = MovieDto.class)))
             @RequestBody MovieDto movieDto) {
-        Movie movie = new Movie();
-        movie.setNameRu(movieDto.getNameRu());
-        movie.setNameEn(movieDto.getNameEn());
-        movie.setPosterUrl(movieDto.getPosterUrl());
-        movie.setTrailerUrl(movieDto.getTrailerUrl());
-        movie.setDescription(movieDto.getDescription());
-        movie.setSlogan(movieDto.getSlogan());
-        movie.setYear(movieDto.getYear());
-        movie.setMovieLength(movieDto.getMovieLength());
-        movie.setGenres(movieDto.getGenres());
-        movie.setCountries(movieDto.getCountries());
-        movie.setNumberOfVotes(0L);
-        movie.setVotesScore(0L);
-        movie.setType(movieDto.getType());
-        movie.setRatingImdb(movieDto.getRatingImdb());
-        movie.setRatingKinopoisk(movieDto.getRatingKinopoisk());
-        movie.setMovieLength(movieDto.getMovieLength());
+        Movie movie = new Movie()
+                .setNameRu(movieDto.getNameRu())
+                .setNameEn(movieDto.getNameEn())
+                .setPosterUrl(movieDto.getPosterUrl())
+                .setTrailerUrl(movieDto.getTrailerUrl())
+                .setDescription(movieDto.getDescription())
+                .setSlogan(movieDto.getSlogan())
+                .setYear(movieDto.getYear())
+                .setMovieLength(movieDto.getMovieLength())
+                .setGenres(movieDto.getGenres())
+                .setCountries(movieDto.getCountries())
+                .setNumberOfVotes(0L)
+                .setVotesScore(0L)
+                .setType(movieDto.getType())
+                .setRatingImdb(movieDto.getRatingImdb())
+                .setRatingKinopoisk(movieDto.getRatingKinopoisk())
+                .setMovieLength(movieDto.getMovieLength());
         return movieService.save(movie);
     }
 
     @PostMapping("/list")
-    public ResponseEntity addList(@RequestBody List<MovieDto> movieDtoList) {
-        for (MovieDto m: movieDtoList) {
+    public ResponseEntity<HttpStatus> addList(@RequestBody List<MovieDto> movieDtoList) {
+        for (MovieDto m : movieDtoList) {
             add(m);
         }
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "Изменить данные о фильме",

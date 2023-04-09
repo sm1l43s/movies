@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -29,16 +29,11 @@ import java.util.List;
 @Tag(name = "Staff", description = "Набор методов для работы с данными об актерах, режиссерах и т.д.")
 @RestController
 @RequestMapping("/api/v1/staff")
+@RequiredArgsConstructor
 public class PersonController {
 
-    final IPersonService personService;
-    final IMovieService movieService;
-
-    @Autowired
-    public PersonController(IPersonService personService, IMovieService movieService) {
-        this.personService = personService;
-        this.movieService = movieService;
-    }
+    private final IPersonService personService;
+    private final IMovieService movieService;
 
     @Operation(summary = "Получить список актеров, режиссеров и т.д. по различным фильтрам",
             description = "Возвращает список с пагинацией. Каждая страница содержит по умолчанию 10 элементов.")

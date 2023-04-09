@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,18 +27,12 @@ import java.util.List;
 @Tag(name = "Reviews", description = "Набор методов для работы с отзывами для фильмов.")
 @RestController
 @RequestMapping("/api/v1/movies")
+@RequiredArgsConstructor
 public class ReviewController {
 
-    final IReviewService reviewService;
-    final IMovieService movieService;
-    final IUserService userService;
-
-    @Autowired
-    public ReviewController(IReviewService reviewService, IMovieService movieService, IUserService userService) {
-        this.reviewService = reviewService;
-        this.movieService = movieService;
-        this.userService = userService;
-    }
+    private final IReviewService reviewService;
+    private final IMovieService movieService;
+    private final IUserService userService;
 
     @Operation(summary = "Получить список рецензий (комментариев) к фильму по его идентификатору",
             description = "Возвращает список рецензий.")

@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,14 +22,10 @@ import org.springframework.web.bind.annotation.*;
         " где происходили съемки фильмов (сериалов, тв-шоу и т.д).")
 @RestController
 @RequestMapping("/api/v1/countries")
+@RequiredArgsConstructor
 public class CountryController {
 
-    final ICountryService countryService;
-
-    @Autowired
-    public CountryController(ICountryService countryService) {
-        this.countryService = countryService;
-    }
+    private final ICountryService countryService;
 
     @Operation(summary = "Получить список стран по различным фильтрам",
             description = "Возвращает список стран с пагинацией. Каждая страница содержит по умолчанию 10 элементов.")

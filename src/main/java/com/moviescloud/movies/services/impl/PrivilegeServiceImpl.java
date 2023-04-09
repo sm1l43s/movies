@@ -4,22 +4,18 @@ import com.moviescloud.movies.entities.Privilege;
 import com.moviescloud.movies.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.PrivilegeRepository;
 import com.moviescloud.movies.services.IPrivilegeService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PrivilegeServiceImpl implements IPrivilegeService {
 
     final PrivilegeRepository privilegeRepository;
-
-    @Autowired
-    public PrivilegeServiceImpl(PrivilegeRepository privilegeRepository) {
-        this.privilegeRepository = privilegeRepository;
-    }
 
     @Override
     public Page<Privilege> findAll(Pageable pageable) {

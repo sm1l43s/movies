@@ -4,22 +4,18 @@ import com.moviescloud.movies.entities.Person;
 import com.moviescloud.movies.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.PersonRepository;
 import com.moviescloud.movies.services.IPersonService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PersonServiceImpl implements IPersonService {
 
     final PersonRepository personRepository;
-
-    @Autowired
-    public PersonServiceImpl(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
 
     @Override
     public Page<Person> findAll(Pageable pageable) {

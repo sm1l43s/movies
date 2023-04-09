@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,14 +21,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Genres", description = "Набор методов для работы с данными о жанрах фильмов")
 @RestController
 @RequestMapping("/api/v1/genres")
+@RequiredArgsConstructor
 public class GenreController {
 
-    final IGenreService genreService;
-
-    @Autowired
-    public GenreController(IGenreService genreService) {
-        this.genreService = genreService;
-    }
+    private final IGenreService genreService;
 
     @Operation(summary = "Получить список жанров по различным фильтрам",
             description = "Возвращает список жанров с пагинацией. Каждая страница содержит по умолчанию 10 элементов.")

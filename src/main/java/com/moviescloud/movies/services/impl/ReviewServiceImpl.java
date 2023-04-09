@@ -4,22 +4,18 @@ import com.moviescloud.movies.entities.Review;
 import com.moviescloud.movies.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.ReviewRepository;
 import com.moviescloud.movies.services.IReviewService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ReviewServiceImpl implements IReviewService {
 
     final ReviewRepository reviewRepository;
-
-    @Autowired
-    public ReviewServiceImpl(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
 
     @Override
     public Page<Review> findAll(Pageable pageable) {

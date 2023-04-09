@@ -4,22 +4,18 @@ import com.moviescloud.movies.entities.Country;
 import com.moviescloud.movies.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.CountryRepository;
 import com.moviescloud.movies.services.ICountryService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CountryServiceImpl implements ICountryService {
 
     final CountryRepository countryRepository;
-
-    @Autowired
-    public CountryServiceImpl(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
 
     @Override
     public Page<Country> findAll(Pageable pageable) {

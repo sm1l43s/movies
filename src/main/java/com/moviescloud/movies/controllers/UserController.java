@@ -1,7 +1,7 @@
 package com.moviescloud.movies.controllers;
 
-import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.entities.Privilege;
+import com.moviescloud.movies.entities.Response;
 import com.moviescloud.movies.entities.User;
 import com.moviescloud.movies.exceptions.AppException;
 import com.moviescloud.movies.services.IPrivilegeService;
@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,16 +28,11 @@ import java.util.List;
 @Tag(name = "Users", description = "Набор методов для работы с данными о пользователях приложения.")
 @RestController
 @RequestMapping("/api/v1/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    final IUserService userService;
-    final IPrivilegeService privilegeService;
-
-    @Autowired
-    public UserController(IUserService userService, IPrivilegeService privilegeService) {
-        this.userService = userService;
-        this.privilegeService = privilegeService;
-    }
+    private final IUserService userService;
+    private final IPrivilegeService privilegeService;
 
     @Operation(summary = "Получить список пользователй по различным фильтрам.",
             description = "Возвращает список пользователей приложения с пагинацией. Каждая страница содержит по умолчанию 10 элементов.")
