@@ -7,6 +7,7 @@ While running jar file for first time whole database structure is being initiali
 
 ### Deployed API
 You can view the deployed application at the following URL - https://movies-cloud.onrender.com
+<br>
 Swagger UI the deployed application at the following URL - https://movies-cloud.onrender.com/swagger-ui/index.html#/
 ## Technologies
 * Java - version 11
@@ -38,7 +39,6 @@ sudo apt install postgresql postgresql-contrib
 ```
 3. #### (Optional) Update database configurations in application.properties
 If you have changed defualt user for creating database with some different username and password, update the src/main/resources/application.properties file accordingly:
-
 ```
 spring.jpa.hibernate.ddl-auto=update #for first time running MUST be set to create, for every consecutive time set to update (if you care to have permanent database, otherwise it is deleted after every consecutive jar run)
 spring.datasource.url=jdbc:postgresql://localhost/movies
@@ -47,9 +47,7 @@ spring.datasource.password=postgres
 ```
 
 4. #### Run the spring boot application
-
 If you download/clone repo elsewhere, change path update accordingly
-
 ```
 cd Documents/movies
 mvn clean install
@@ -60,11 +58,7 @@ this runs at port 8080 and hence all endpoints can be accessed starting from htt
 6. #### Create database objects (If you want some prerecorded values in local database)
 
 ## How to use with Swagger UI
-
 You can use Swagger UI from http://localhost:8080/swagger-ui.html
 ![image](https://github.com/sm1l43s/movies/blob/master/src/main/resources/img/img.png)
-
-
 It has inbuilt functionalities to try out the API without having to install and use Postman
-
 ![image](https://github.com/sm1l43s/movies/blob/master/src/main/resources/img/img_1.png)
