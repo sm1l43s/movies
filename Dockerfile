@@ -8,8 +8,7 @@ RUN mvn clean package -Pprod -DskipTests
 #
 # Package stage
 #
-FROM alpine:3.13
-RUN apk add openjdk:11-jdk-slim
+FROM adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine-slim
 COPY --from=build /target/movies-1.0.jar movies.jar
 # ENV PORT=8080
 EXPOSE 8080
