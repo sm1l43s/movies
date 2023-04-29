@@ -38,7 +38,7 @@ sudo snap install postman
 sudo apt install postgresql postgresql-contrib
 ```
 3. #### (Optional) Update database configurations in application.properties
-If you have changed defualt user for creating database with some different username and password, update the src/main/resources/application.properties file accordingly:
+If you have changed defualt user for creating database with some different username and password, update the src/main/resources/application.yml file accordingly:н
 ```
 spring.jpa.hibernate.ddl-auto=update #for first time running MUST be set to create, for every consecutive time set to update (if you care to have permanent database, otherwise it is deleted after every consecutive jar run)
 spring.datasource.url=jdbc:postgresql://localhost/movies
