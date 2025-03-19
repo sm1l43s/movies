@@ -1,9 +1,9 @@
 package com.moviescloud.movies.repositories;
 
 import com.moviescloud.movies.entities.Person;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
 }

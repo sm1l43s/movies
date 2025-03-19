@@ -4,10 +4,10 @@ import com.moviescloud.movies.entities.Country;
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.entities.Type;
 import lombok.Value;
-import javax.persistence.Lob;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
+import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Value

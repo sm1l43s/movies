@@ -6,11 +6,11 @@ import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovieRepository extends PagingAndSortingRepository<Movie, Long> {
+public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     Page<Movie> findAllByNameRuContainingIgnoreCase(Pageable pageable, String keyword);
     Page<Movie> findAllByType(Pageable pageable, Type type);
