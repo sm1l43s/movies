@@ -1,0 +1,396 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Vitaliy Shulmin
+      changes:
+        - createTable:
+            tableName: country
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(300)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: genre
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: movie
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name_ru
+                  type: varchar(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name_en
+                  type: varchar(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: poster_url
+                  type: varchar(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: trailer_url
+                  type: varchar(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: slogan
+                  type: varchar(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: year
+                  type: varchar(4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: movie_length
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating_imdb
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating_kinopoisk
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: votes_score
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number_of_votes
+                  type: double
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: movie_genres
+            columns:
+              - column:
+                  name: movie_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: genre_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+        - createTable:
+            tableName: movie_countries
+            columns:
+              - column:
+                  name: movie_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: country_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+        - createTable:
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name_ru
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name_en
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: poster_url
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birthday
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_place_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: person_movies
+            columns:
+              - column:
+                  name: person_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: movie_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+        - createTable:
+            tableName: privilege
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: privilege_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: profession
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: profession_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: review
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(2500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: type
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(1024)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_day
+                  type: date
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: users_privileges
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: privilege_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+  - changeSet:
+      id: 2
+      author: Vitaliy Shulmin
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: movie_genres
+            baseColumnNames: movie_id
+            constraintName: fk_movie_genres_movie
+            referencedTableName: movie
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: movie_genres
+            baseColumnNames: genre_id
+            constraintName: fk_movie_genres_genre
+            referencedTableName: genre
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: movie_countries
+            baseColumnNames: movie_id
+            constraintName: fk_movie_countries_movie
+            referencedTableName: movie
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: movie_countries
+            baseColumnNames: country_id
+            constraintName: fk_movie_countries_country
+            referencedTableName: country
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: person
+            baseColumnNames: birth_place_id
+            constraintName: fk_person_country
+            referencedTableName: country
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: person_movies
+            baseColumnNames: person_id
+            constraintName: fk_person_movies_person
+            referencedTableName: person
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: person_movies
+            baseColumnNames: movie_id
+            constraintName: fk_person_movies_movie
+            referencedTableName: movie
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: review
+            baseColumnNames: author_id
+            constraintName: fk_review_users
+            referencedTableName: users
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: users_privileges
+            baseColumnNames: user_id
+            constraintName: fk_users_privileges_users
+            referencedTableName: users
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: users_privileges
+            baseColumnNames: privilege_id
+            constraintName: fk_users_privileges_privilege
+            referencedTableName: privilege
+            referencedColumnNames: id
