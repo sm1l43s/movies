@@ -1,7 +1,7 @@
 package com.moviescloud.authentication.congfigs;
 
 import com.moviescloud.authentication.services.jwt.JwtUserDetailsService;
-import exceptions.UnauthorizedException;
+import com.moviescloud.common.exceptions.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

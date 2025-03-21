@@ -2,8 +2,8 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.movies.entities.Country;
 import com.moviescloud.movies.services.ICountryService;
-import entities.Response;
-import exceptions.AppException;
+import com.moviescloud.common.entities.Response;
+import com.moviescloud.common.exceptions.AppException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

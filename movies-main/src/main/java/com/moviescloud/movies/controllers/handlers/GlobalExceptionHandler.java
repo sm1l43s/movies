@@ -1,9 +1,9 @@
 package com.moviescloud.movies.controllers.handlers;
 
-import exceptions.AccessDeniedException;
-import exceptions.AppException;
-import exceptions.ResourceNotFoundException;
-import exceptions.UnauthorizedException;
+import com.moviescloud.common.exceptions.AccessDeniedException;
+import com.moviescloud.common.exceptions.AppException;
+import com.moviescloud.common.exceptions.ResourceNotFoundException;
+import com.moviescloud.common.exceptions.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

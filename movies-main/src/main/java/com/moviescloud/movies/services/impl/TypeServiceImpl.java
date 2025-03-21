@@ -1,7 +1,7 @@
 package com.moviescloud.movies.services.impl;
 
 import com.moviescloud.movies.entities.Type;
-import exceptions.ResourceNotFoundException;
+import com.moviescloud.common.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.TypeRepository;
 import com.moviescloud.movies.services.ITypeServices;
 import lombok.RequiredArgsConstructor;

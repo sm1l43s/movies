@@ -1,12 +1,13 @@
 package com.moviescloud.movies.controllers;
 
+import com.moviescloud.common.resttemplates.UserClient;
 import com.moviescloud.movies.dto.ReviewDto;
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Review;
 import com.moviescloud.movies.services.IMovieService;
 import com.moviescloud.movies.services.IReviewService;
-import entities.Response;
-import entities.User;
+import com.moviescloud.common.entities.Response;
+import com.moviescloud.common.entities.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,7 +32,7 @@ public class ReviewController {
 
     private final IReviewService reviewService;
     private final IMovieService movieService;
-    private final IUserService userService;
+    private final UserClient userClient;
 
     @Operation(summary = "Получить список рецензий (комментариев) к фильму по его идентификатору",
             description = "Возвращает список рецензий.")
@@ -69,7 +70,7 @@ public class ReviewController {
     })
     @GetMapping("/reviews/{id}/authors")
     public User getAuthorReviewByIdReview(@PathVariable Long id) {
-        return userService.findById(reviewService.findById(id).getAuthor().getId());
+        return userClient.findById(reviewService.findById(id).getAuthor().getId());
     }
 
     @Operation(summary = "Добавить рецензию к фильму",
@@ -150,7 +151,7 @@ public class ReviewController {
     })
     @PutMapping("/reviews")
     public Review editReviewToMovie(@RequestBody Review review) {
-        review.setAuthor(userService.findById(review.getAuthor().getId()));
+        review.setAuthor(userClient.findById(review.getAuthor().getId()));
         reviewService.save(review);
         return review;
     }

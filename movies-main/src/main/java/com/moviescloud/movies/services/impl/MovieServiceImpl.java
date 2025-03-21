@@ -4,7 +4,7 @@ import com.moviescloud.movies.entities.Country;
 import com.moviescloud.movies.entities.Genre;
 import com.moviescloud.movies.entities.Movie;
 import com.moviescloud.movies.entities.Type;
-import exceptions.ResourceNotFoundException;
+import com.moviescloud.common.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.MovieRepository;
 import com.moviescloud.movies.services.IMovieService;
 import lombok.RequiredArgsConstructor;

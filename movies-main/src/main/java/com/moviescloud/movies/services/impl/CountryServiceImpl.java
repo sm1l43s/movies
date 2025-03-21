@@ -3,7 +3,7 @@ package com.moviescloud.movies.services.impl;
 import com.moviescloud.movies.entities.Country;
 import com.moviescloud.movies.repositories.CountryRepository;
 import com.moviescloud.movies.services.ICountryService;
-import exceptions.ResourceNotFoundException;
+import com.moviescloud.common.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

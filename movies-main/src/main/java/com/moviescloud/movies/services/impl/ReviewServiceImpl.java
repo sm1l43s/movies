@@ -1,7 +1,7 @@
 package com.moviescloud.movies.services.impl;
 
 import com.moviescloud.movies.entities.Review;
-import exceptions.ResourceNotFoundException;
+import com.moviescloud.common.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.ReviewRepository;
 import com.moviescloud.movies.services.IReviewService;
 import lombok.RequiredArgsConstructor;
