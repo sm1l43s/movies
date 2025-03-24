@@ -2,66 +2,30 @@ version: '3.8'
 
 services:
   user-service:
-    image: your-user-service-image:latest # Укажите имя вашего Docker-образа для user-service
     container_name: user-service
     build:
-      context: ./user-service # Путь к директории с Dockerfile для user-service
+      context: ./user-service
+      dockerfile: Dockerfile
     ports:
       - "8081:8080" # Проброс порта, если нужно
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-service-db:5432/db_users
-      - SPRING_DATASOURCE_USERNAME=users
-      - SPRING_DATASOURCE_PASSWORD=password
-    depends_on:
-      - user-service-db
     networks:
-      - app-network
-
-  user-service-db:
-    image: postgres:16.3-alpine
-    container_name: user-service-db
-    environment:
-      POSTGRES_DB: db_users
-      POSTGRES_USER: users
-      POSTGRES_PASSWORD: password
-    volumes:
-      - user-service-db-data:/var/lib/postgresql/data
-    networks:
-      - app-network
+      - service-network
 
   authentication-service:
-    image: your-authentication-service-image:latest # Укажите имя вашего Docker-образа для authentication-service
     container_name: authentication-service
     build:
-      context: ./authentication-service # Путь к директории с Dockerfile для authentication-service
+      context: ./authentication
+      dockerfile: Dockerfile
     ports:
       - "8082:8080" # Проброс порта, если нужно
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://authentication-service-db:5432/db_auth
-      - SPRING_DATASOURCE_USERNAME=auth
-      - SPRING_DATASOURCE_PASSWORD=password
-    depends_on:
-      - authentication-service-db
     networks:
-      - app-network
-
-  authentication-service-db:
-    image: postgres:16.3-alpine
-    container_name: authentication-service-db
-    environment:
-      POSTGRES_DB: db_auth
-      POSTGRES_USER: auth
-      POSTGRES_PASSWORD: password
-    volumes:
-      - authentication-service-db-data:/var/lib/postgresql/data
-    networks:
-      - app-network
+      - service-network
 
   main-service:
-    image: your-main-service-image:latest # Укажите имя вашего Docker-образа для main-service
     container_name: main-service
     build:
-      context: ./main-service # Путь к директории с Dockerfile для main-service
+      context: ./movies-main
+      dockerfile: Dockerfile
     ports:
       - "8083:8080" # Проброс порта, если нужно
     environment:
@@ -71,7 +35,7 @@ services:
     depends_on:
       - main-service-db
     networks:
-      - app-network
+      - service-network
 
   main-service-db:
     image: postgres:16.3-alpine
@@ -80,16 +44,11 @@ services:
       POSTGRES_DB: db_movies
       POSTGRES_USER: main
       POSTGRES_PASSWORD: password
-    volumes:
-      - main-service-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     networks:
-      - app-network
+      - service-network
 
 networks:
-  app-network:
+  service-network:
     driver: bridge
-
-volumes:
-  user-service-db-data:
-  authentication-service-db-data:
-  main-service-db-data:

@@ -1,6 +1,6 @@
 package com.moviescloud.movies.services.impl;
 
-import com.moviescloud.movies.entities.Country;
+import com.moviescloud.common.entities.Country;
 import com.moviescloud.movies.repositories.CountryRepository;
 import com.moviescloud.movies.services.ICountryService;
 import com.moviescloud.common.exceptions.ResourceNotFoundException;

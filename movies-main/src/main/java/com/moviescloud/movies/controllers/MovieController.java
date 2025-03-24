@@ -1,13 +1,11 @@
 package com.moviescloud.movies.controllers;
 
+import com.moviescloud.common.entities.*;
 import com.moviescloud.movies.dto.MovieDto;
-import com.moviescloud.movies.entities.*;
 import com.moviescloud.movies.services.ICountryService;
 import com.moviescloud.movies.services.IGenreService;
 import com.moviescloud.movies.services.IMovieService;
 import com.moviescloud.movies.services.ITypeServices;
-import com.moviescloud.common.entities.Response;
-import com.moviescloud.common.entities.User;
 import com.moviescloud.common.exceptions.AppException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

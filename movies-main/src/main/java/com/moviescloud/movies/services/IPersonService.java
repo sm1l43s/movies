@@ -1,6 +1,6 @@
 package com.moviescloud.movies.services;
 
-import com.moviescloud.movies.entities.Person;
+import com.moviescloud.common.entities.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,4 +1,4 @@
-package com.moviescloud.movies.entities;
+package com.moviescloud.common.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +15,12 @@ import jakarta.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Country {
+public class Profession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
-    @Size(min = 3, max = 300)
-    private String name;
+    @Size(max = 256)
+    private String professionName;
 }

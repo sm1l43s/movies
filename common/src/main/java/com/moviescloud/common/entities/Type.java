@@ -1,4 +1,4 @@
-package com.moviescloud.movies.entities;
+package com.moviescloud.common.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,18 +9,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Genre {
+public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Size(min = 2, max = 30)
+    @NotEmpty
     private String name;
 }

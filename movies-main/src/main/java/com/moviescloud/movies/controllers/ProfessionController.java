@@ -1,6 +1,6 @@
 package com.moviescloud.movies.controllers;
 
-import com.moviescloud.movies.entities.Profession;
+import com.moviescloud.common.entities.Profession;
 import com.moviescloud.movies.services.IProfessionService;
 import com.moviescloud.common.entities.Response;
 import com.moviescloud.common.exceptions.AppException;

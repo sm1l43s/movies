@@ -1,6 +1,6 @@
 package com.moviescloud.movies.services.impl;
 
-import com.moviescloud.movies.entities.Profession;
+import com.moviescloud.common.entities.Profession;
 import com.moviescloud.common.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.ProfessionRepository;
 import com.moviescloud.movies.services.IProfessionService;

@@ -1,7 +1,6 @@
-package com.moviescloud.movies.entities;
+package com.moviescloud.common.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.moviescloud.common.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

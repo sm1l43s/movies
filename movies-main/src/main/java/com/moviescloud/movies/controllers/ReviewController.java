@@ -2,8 +2,8 @@ package com.moviescloud.movies.controllers;
 
 import com.moviescloud.common.resttemplates.UserClient;
 import com.moviescloud.movies.dto.ReviewDto;
-import com.moviescloud.movies.entities.Movie;
-import com.moviescloud.movies.entities.Review;
+import com.moviescloud.common.entities.Movie;
+import com.moviescloud.common.entities.Review;
 import com.moviescloud.movies.services.IMovieService;
 import com.moviescloud.movies.services.IReviewService;
 import com.moviescloud.common.entities.Response;

@@ -1,6 +1,6 @@
 package com.moviescloud.movies.services.impl;
 
-import com.moviescloud.movies.entities.Person;
+import com.moviescloud.common.entities.Person;
 import com.moviescloud.common.exceptions.ResourceNotFoundException;
 import com.moviescloud.movies.repositories.PersonRepository;
 import com.moviescloud.movies.services.IPersonService;

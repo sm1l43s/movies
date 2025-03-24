@@ -1,6 +1,6 @@
 package com.moviescloud.movies.services.impl;
 
-import com.moviescloud.movies.entities.Genre;
+import com.moviescloud.common.entities.Genre;
 import com.moviescloud.movies.repositories.GenreRepository;
 import com.moviescloud.movies.services.IGenreService;
 import com.moviescloud.common.exceptions.ResourceNotFoundException;

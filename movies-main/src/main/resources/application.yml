@@ -1,20 +1,14 @@
 #Settigns spring's
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://host.docker.internal:5432/db_movies}
+    username: ${SPRING_DATASOURCE_USERNAME:main}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: true
 
 #Settigns servers
 server:
@@ -23,8 +17,3 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui
-
-#Settings JWT
-jwt:
-  secret: very_long_text
-  validity: 43200000

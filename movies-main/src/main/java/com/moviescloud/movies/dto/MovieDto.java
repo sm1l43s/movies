@@ -1,8 +1,8 @@
 package com.moviescloud.movies.dto;
 
-import com.moviescloud.movies.entities.Country;
-import com.moviescloud.movies.entities.Genre;
-import com.moviescloud.movies.entities.Type;
+import com.moviescloud.common.entities.Country;
+import com.moviescloud.common.entities.Genre;
+import com.moviescloud.common.entities.Type;
 import lombok.Value;
 import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;

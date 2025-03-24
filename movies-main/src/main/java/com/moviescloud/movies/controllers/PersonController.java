@@ -1,7 +1,7 @@
 package com.moviescloud.movies.controllers;
 
-import com.moviescloud.movies.entities.Movie;
-import com.moviescloud.movies.entities.Person;
+import com.moviescloud.common.entities.Movie;
+import com.moviescloud.common.entities.Person;
 import com.moviescloud.movies.services.IMovieService;
 import com.moviescloud.movies.services.IPersonService;
 import com.moviescloud.common.entities.Response;

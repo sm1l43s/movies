@@ -1,41 +1,50 @@
-package com.moviescloud.movies.entities;
+package com.moviescloud.common.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.moviescloud.common.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank
-    @Size(max = 2500)
-    private String title;
+    @Size(min = 5, max = 256)
+    private String nameRu;
 
     @NotBlank
-    @Size(max = 640000)
-    @Column(columnDefinition="TEXT")
-    private String description;
+    @Size(min = 5, max = 256)
+    private String nameEn;
+
+    @NotBlank
+    @Size(max = 256)
+    private String posterUrl;
 
     @PastOrPresent
-    private Date createdAt;
+    private Date birthday;
 
+    @NotBlank
+    @OneToOne
+    private Country birthPlace;
+
+    @ManyToMany
     @JsonIgnore
-    @ManyToOne
-    @NotNull
-    private User author;
+    private List<Movie> movies;
+
+    @OneToMany
+    private List<Profession> professions;
 }

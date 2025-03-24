@@ -1,9 +1,9 @@
 package com.moviescloud.movies.services;
 
-import com.moviescloud.movies.entities.Country;
-import com.moviescloud.movies.entities.Genre;
-import com.moviescloud.movies.entities.Movie;
-import com.moviescloud.movies.entities.Type;
+import com.moviescloud.common.entities.Country;
+import com.moviescloud.common.entities.Genre;
+import com.moviescloud.common.entities.Movie;
+import com.moviescloud.common.entities.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
