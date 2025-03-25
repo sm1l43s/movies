@@ -1,6 +1,6 @@
 package com.moviescloud.authentication.controllers;
 
-import com.moviescloud.authentication.congfigs.CustomAuthenticationManager;
+import com.moviescloud.authentication.configs.CustomAuthenticationManager;
 import com.moviescloud.authentication.dto.AuthenticationRequest;
 import com.moviescloud.authentication.dto.AuthenticationRequestDto;
 import com.moviescloud.authentication.dto.AuthenticationResponse;

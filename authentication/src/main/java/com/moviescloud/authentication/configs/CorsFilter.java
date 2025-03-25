@@ -1,4 +1,4 @@
-package com.moviescloud.authentication.congfigs;
+package com.moviescloud.authentication.configs;
 
 import org.springframework.stereotype.Component;
 

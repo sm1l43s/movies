@@ -1,4 +1,4 @@
-package com.moviescloud.authentication.congfigs;
+package com.moviescloud.authentication.configs;
 
 import com.moviescloud.authentication.services.jwt.JwtUserDetailsService;
 import com.moviescloud.common.exceptions.UnauthorizedException;
