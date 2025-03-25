@@ -1,4 +1,4 @@
-package com.moviescloud.movies.controllers.handlers;
+package com.moviescloud.common.handlers;
 
 import com.moviescloud.common.exceptions.AccessDeniedException;
 import com.moviescloud.common.exceptions.AppException;
