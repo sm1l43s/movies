@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  user-service:
+    container_name: user-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080" # Проброс порта, если нужно
+    networks:
+      - service-network
+
+  authentication-service:
+    container_name: authentication-service
+    build:
+      context: ./authentication
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080" # Проброс порта, если нужно
+    networks:
+      - service-network
+
+  main-service:
+    container_name: main-service
+    build:
+      context: ./movies-main
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080" # Проброс порта, если нужно
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://main-service-db:5432/db_movies
+      - SPRING_DATASOURCE_USERNAME=main
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - main-service-db
+    networks:
+      - service-network
+
+  main-service-db:
+    image: postgres:16.3-alpine
+    container_name: main-service-db
+    environment:
+      POSTGRES_DB: db_movies
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    networks:
+      - service-network
+
+networks:
+  service-network:
+    driver: bridge

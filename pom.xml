@@ -2,25 +2,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.8</version>
+		<version>3.4.3</version>
 		<relativePath/>
 	</parent>
+
+	<modules>
+		<module>movies-main</module>
+		<module>authentication</module>
+		<module>user-service</module>
+		<module>common</module>
+	</modules>
+
 	<groupId>com.movies-cloud</groupId>
 	<artifactId>movies</artifactId>
 	<version>1.0</version>
 	<name>movies</name>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<description>Spring boot API with information a movies</description>
+
 	<properties>
-		<java.version>11</java.version>
+		<java.version>21</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<postgresql.version>42.7.4</postgresql.version>
+		<openapi.version>1.8.0</openapi.version>
+		<com.auth0.version>4.2.2</com.auth0.version>
+		<jakarta.servlet.api.version>6.1.0</jakarta.servlet.api.version>
+		<lombok.version>1.18.36</lombok.version>
 	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -35,8 +49,6 @@
 							<additionalProperties>
 								<encoding.source>${project.build.sourceEncoding}</encoding.source>
 								<encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
-								<java.source>${maven.compiler.source}</java.source>
-								<java.target>${maven.compiler.target}</java.target>
 							</additionalProperties>
 						</configuration>
 					</execution>
@@ -44,10 +56,18 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>${jakarta.servlet.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -58,13 +78,15 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -76,7 +98,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.14</version>
+			<version>${openapi.version}</version>
 		</dependency>
 
 		<dependency>
@@ -87,7 +109,7 @@
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-			<version>4.2.2</version>
+			<version>${com.auth0.version}</version>
 		</dependency>
 	</dependencies>
 

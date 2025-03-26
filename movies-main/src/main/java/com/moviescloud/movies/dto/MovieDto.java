@@ -1,0 +1,60 @@
+package com.moviescloud.movies.dto;
+
+import com.moviescloud.common.entities.Country;
+import com.moviescloud.common.entities.Genre;
+import com.moviescloud.common.entities.Type;
+import lombok.Value;
+import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
+import java.util.List;
+
+@Value
+public class MovieDto {
+    @NotBlank
+    @Size(min = 2, max = 256)
+    String nameRu;
+
+    @NotBlank
+    @Size(min = 2, max = 256)
+    String nameEn;
+
+    @NotBlank
+    @Size(min = 5, max = 1024)
+    String posterUrl;
+
+    @NotBlank
+    @Size(max = 1024)
+    String trailerUrl;
+
+    @NotBlank
+    @Size(min = 5, max = 256)
+    String slogan;
+
+    @Lob
+    @NotBlank
+    @Size(max = 64000)
+    String description;
+
+    @NotBlank
+    @Size(max = 10)
+    double ratingImdb;
+
+    @NotBlank
+    @Size(max = 10)
+    double ratingKinopoisk;
+
+    @PastOrPresent
+    String year;
+
+    @NotBlank
+    @Size(max = 1000)
+    int movieLength;
+
+    Type type;
+
+    List<Genre> genres;
+
+    List<Country> countries;
+}

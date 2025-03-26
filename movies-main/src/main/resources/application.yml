@@ -1,0 +1,19 @@
+#Settigns spring's
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://host.docker.internal:5432/db_movies}
+    username: ${SPRING_DATASOURCE_USERNAME:main}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#Settigns servers
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    enabled: true
